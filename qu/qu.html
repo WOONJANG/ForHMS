@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영양학 퀴즈</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif; /* 어린이 친화적 폰트 */
+            background-color: #f0f8ff; /* 밝고 친근한 배경색 */
+            color: #333; /* 글자 색상 */
+            text-align: center; /* 중앙 정렬 */
+        }
+
+        .quiz-container {
+            max-width: 600px; /* 퀴즈 컨테이너 너비 */
+            margin: 0 auto; /* 중앙에 위치 */
+            padding: 20px;
+            border: 2px solid #ccc; /* 경계 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            background-color: #ffffff; /* 흰색 배경 */
+        }
+
+        .progress {
+            display: inline-block; /* 진행 상태바 */
+            background-color: #ddd; /* 배경색 */
+            height: 20px; /* 높이 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            margin: 10px; /* 간격 */
+        }
+
+        .progress-inner {
+            background-color: #ff4500; /* 진행 상태 색상 */
+            height: 100%; /* 전체 높이 */
+            border-radius: 10px; /* 모서리 둥글게 */
+        }
+
+        .results {
+            margin-top: 20px; /* 결과 목록과의 간격 */
+            text-align: left; /* 왼쪽 정렬 */
+            padding: 10px;
+            border: 1px solid #ccc; /* 경계 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            background-color: #f9f9f9; /* 결과 목록의 배경색 */
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;"> <!-- 진행 상태바 -->
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div> <!-- 진행 상태 표시 -->
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p> <!-- 질문 표시 -->
+        <input type="text" id="answerInput" placeholder="정답을 입력하세요" /> <!-- 정답 입력 -->
+        <button onclick="checkAnswer()">정답 확인</button> <!-- 정답 확인 버튼 -->
+        <p id="feedback">정답을 입력하세요.</p> <!-- 피드백 표시 -->
+
+        <div class="results" id="results">
+            <!-- 정답/오답 기록이 여기에 표시됩니다 -->
+        </div>
+    </div>
+
+    <script>
+        const quizQuestions = [
+            { question: '하루에 권장되는 물 섭취량은?', answer: '8잔' },
+            { question: '과일과 채소를 충분히 섭취하는 것이 좋은 이유는?', answer: '비타민' },
+            { question: '하루에 필요한 단백질의 양은 무엇에 따라 결정되나요?', answer: '체중' },
+            { question: '칼슘이 풍부한 음식은 무엇인가요?', answer: '우유' },
+            { question: '탄수화물은 몸에 어떤 역할을 하나요?', answer: '에너지' },
+            // 총 50개 문제를 생성하십시오.
+        ];
+
+        const totalQuestions = quizQuestions.length; /* 전체 문제 개수 */
+        let currentQuestionIndex = 0; /* 현재 질문 인덱스 */
+        let correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : []; /* 정답 목록 */
+        let currentQuestions = shuffleQuestions(quizQuestions); /* 랜덤 질문 배열 생성 */
+
+        function shuffleQuestions(questions) {
+            const shuffled = [...questions]; /* 기존 배열 복사 */
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1)); /* 무작위 인덱스 생성 */
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; /* 인덱스 값 교환 */
+            }
+            return shuffled;
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex < currentQuestions.length) {
+                const currentQuestion = currentQuestions[currentQuestionIndex];
+                document.getElementById('questionText').innerText = currentQuestion.question; /* 질문 표시 */
+            } else {
+                const correctCount = correctAnswers.filter(a => a.correct).length; /* 정답 개수 */
+                alert(`문제가 모두 끝났습니다! 맞은 점수: ${correctCount}/${totalQuestions}`); /* 문제 종료 알림 */
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answerInput').value.trim(); /* 사용자가 입력한 답변 */
+            const correctAnswer = currentQuestions[currentQuestionIndex].answer; /* 정답 */
+
+            let feedbackText = ''; /* 피드백 초기화 */
+            if (userAnswer === correctAnswer) {
+                correctAnswers.push({
+                    question: currentQuestions[currentQuestionIndex].question,
+                    correct: true,
+                    correctAnswer: correctAnswer,
+                }); /* 정답 기록 */
+                feedbackText = '정답입니다! 다음 문제로 넘어갑니다.'; /* 정답 피드백 */
+            } else {
+                correctAnswers.push({
+                    question: currentQuestions[currentQuestionIndex].question,
+                    correct: false,
+                    correctAnswer: correctAnswer,
+                }); /* 오답 기록 */
+                feedbackText = `틀렸습니다. 정답은 "${correctAnswer}"입니다.`; /* 오답 피드백 */
+            }
+
+            setCookie('correctAnswers', JSON.stringify(correctAnswers), 7); /* 쿠키에 결과 저장 */
+            document.getElementById('feedback').innerText = feedbackText; /* 피드백 표시 */
+
+            currentQuestionIndex++; /* 다음 문제로 이동 */
+            updateProgress(); /* 진행 상태 업데이트 */
+            document.getElementById('answerInput').value = ''; /* 입력값 초기화 */
+            displayQuestion(); /* 다음 질문 표시 */
+            updateResults(); /* 기록 업데이트 */
+        }
+
+        function updateProgress() {
+            const progressPercentage = (currentQuestionIndex / totalQuestions) * 100; /* 진행률 계산 */
+            document.getElementById('progressInner').style.width = `${progressPercentage}%`; /* 진행 상태 업데이트 */
+        }
+
+        function updateResults() {
+            const resultsDiv = document.getElementById('results'); /* 결과 표시 영역 */
+            resultsDiv.innerHTML = ''; /* 초기화 */
+            correctAnswers.forEach((answer, index) => {
+                const resultText = document.createElement('p');
+                if (answer.correct) {
+                    resultText.innerText = `${index + 1}번 문제: 정답`; /* 정답 표시 */
+                } else {
+                    resultText.innerText = `${index + 1}번 문제: 오답 - 정답은 "${answer.correctAnswer}"`; /* 오답 + 정답 */
+                }
+                resultsDiv.appendChild(resultText); /* 결과 추가 */
+            });
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); /* 쿠키 유효 기간 설정 */
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value};${expires};path=/`; /* 쿠키 설정 */
+        }
+
+        function getCookie(name) {
+            const nameEQ = `${name}=`;
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.startsWith(nameEQ)) {
+                    return c.substring(nameEQ.length);
+                }
+            }
+            return null;
+        }
+
+        displayQuestion(); /* 첫 번째 질문 표시 */
+        updateProgress(); /* 진행 상태 업데이트 */
+        updateResults(); /* 기록 업데이트 */
+    </script>
+</body>
+</html>

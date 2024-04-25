@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>일일 영양 정보 계산기</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif; /* 어린이 친화적 폰트 */
+            background-color: #f0f8ff; /* 밝고 친근한 배경색 */
+            color: #333; /* 글자 색상 */
+            text-align: center; /* 중앙 정렬 */
+        }
+
+        h1 {
+            color: #ff4500; /* 강렬한 색상으로 눈에 띄게 */
+        }
+
+        .container {
+            max-width: 600px; /* 전체 컨테이너의 최대 너비 */
+            margin: 0 auto; /* 중앙에 위치 */
+            padding: 20px;
+            border: 2px solid #ccc; /* 경계 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            background-color: #ffffff; /* 흰색 배경 */
+        }
+
+        .result {
+            display: grid; /* 그리드 레이아웃 */
+            grid-template-columns: repeat(2, 1fr); /* 2열 구성 */
+            gap: 20px; /* 열과 행 사이 간격 */
+            margin-top: 20px; /* 결과 영역의 상단 간격 */
+        }
+
+        .gauge-container {
+            position: relative; /* 절대 위치 지정 */
+            display: inline-block; /* 차트 위치 조정 */
+        }
+
+        .gauge-label {
+            position: absolute; /* 차트 중앙에 텍스트 배치 */
+            top: 50%; /* 세로 중앙 정렬 */
+            left: 50%; /* 가로 중앙 정렬 */
+            transform: translate(-50%, 55px); /* 55px 아래로 이동 */
+            font-size: 16px; /* 텍스트 크기 */
+            color: #333; /* 텍스트 색상 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>일일 영양 정보 계산기</h1>
+        <p>체중(kg)을 입력하세요:</p>
+        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
+
+        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
+            <div class="gauge-container">
+                <h3>일일 권장 칼로리</h3>
+                <canvas id="calorieGauge"></canvas>
+                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 탄수화물</h3>
+                <canvas id="carbsGauge"></canvas>
+                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 단백질</h3>
+                <canvas id="proteinsGauge"></canvas>
+                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 지방</h3>
+                <canvas id="fatsGauge"></canvas>
+                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let calorieGauge;
+        let carbsGauge;
+        let proteinsGauge;
+        let fatsGauge;
+
+        function initGauges() {
+            const calorieCtx = document.getElementById('calorieGauge').getContext('2d');
+            const carbsCtx = document.getElementById('carbsGauge').getContext('2d');
+            const proteinsCtx = document.getElementById('proteinsGauge').getContext('2d');
+            const fatsCtx = document.getElementById('fatsGauge').getContext('2d');
+
+            calorieGauge = new Chart(calorieCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [0, 3000], /* 초기값 */
+                        backgroundColor: ['#ff4500', '#ddd'],
+                    }],
+                },
+                options: {
+                    rotation: -90, /* 게이지 회전 */
+                    circumference: 180, /* 180도 게이지 */
+                    cutout: '70%', /* 도넛 중앙 부분을 비우기 */
+                    tooltips: { enabled: false }, /* 툴팁 비활성화 */
+                },
+            });
+
+            carbsGauge = new Chart(carbsCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [0, 450], /* 초기값 */
+                        backgroundColor: ['#ff4500', '#ddd'],
+                    }],
+                },
+                options: {
+                    rotation: -90,
+                    circumference: 180,
+                    cutout: '70%',
+                    tooltips: { enabled: false },
+                },
+            });
+
+            proteinsGauge = new Chart(proteinsCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [0, 150], /* 초기값 */
+                        backgroundColor: ['#ff4500', '#ddd'],
+                    }],
+                },
+                options: {
+                    rotation: -90,
+                    circumference: 180,
+                    cutout: '70%',
+                    tooltips: { enabled: false },
+                },
+            });
+
+            fatsGauge = new Chart(fatsCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [0, 100], /* 초기값 */
+                        backgroundColor: ['#ff4500', '#ddd'],
+                    }],
+                },
+                options: {
+                    rotation: -90,
+                    circumference: 180,
+                    cutout: '70%',
+                    tooltips: { enabled: false },
+                },
+            });
+        }
+
+        function calculate() {
+            const weight = document.getElementById('weight').value;
+
+            if (!weight || weight <= 0) {
+                alert("올바른 체중을 입력하세요.");
+                return;
+            }
+
+            const dailyCalories = weight * 30; /* 일일 권장 칼로리 */
+            const carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
+            const proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
+            const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
+
+            updateGauge(calorieGauge, dailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
+            updateGauge(carbsGauge, carbs, 450, 'carbsLabel', carbs + ' g');
+            updateGauge(proteinsGauge, proteins, 150, 'proteinsLabel', proteins + ' g');
+            updateGauge(fatsGauge, fats, 100, 'fatsLabel', fats + ' g');
+        }
+
+        function updateGauge(chart, value, max, labelId, labelText) {
+            chart.data.datasets[0].data = [value, max - value];
+            chart.update(); /* 차트 업데이트 */
+            document.getElementById(labelId).innerText = labelText; /* 중앙 레이블 업데이트 */
+        }
+
+        initGauges(); /* 차트 초기화 */
+    </script>
+</body>
+</html>
