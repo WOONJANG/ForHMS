@@ -25,7 +25,6 @@
             background-color: #ddd;
             height: 20px;
             border-radius: 10px;
-            margin: 10px;
         }
 
         .progress-inner {
@@ -47,9 +46,6 @@
 <body>
     <div class="quiz-container">
         <h1>영양학 퀴즈</h1>
-        <div class="progress" style="width: 100%;">
-            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
-        </div>
         <p id="questionText">문제가 로드됩니다.</p>
         <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
         <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
@@ -70,13 +66,19 @@
         ];
 
         const maxQuestionsPerDay = 3; // 하루에 최대 3문제
-        let correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : [];
-        const today = getToday(); // 오늘 날짜 (YYYY-MM-DD)
+        const today = getToday(); // 오늘 날짜 (한국 표준시)
+        const correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : [];
         
-        correctAnswers = correctAnswers.filter(answer => answer.date.startsWith(today)); // 오늘의 정답 필터링
-        const dailyCorrectCount = correctAnswers.length;
+        // 오늘 푼 문제의 수를 필터링
+        const dailyCorrectAnswers = correctAnswers.filter(answer => answer.date.startsWith(today));
+        const dailyCorrectCount = dailyCorrectAnswers.length;
 
         function displayQuestion() {
+            if (dailyCorrectCount >= maxQuestionsPerDay) {
+                endQuiz(); // 더 이상 문제를 풀 수 없게
+                return;
+            }
+            
             const randomIndex = Math.floor(Math.random() * quizQuestions.length); // 무작위 문제 선택
             const currentQuestion = quizQuestions[randomIndex];
             document.getElementById('questionText').innerText = currentQuestion.question;
@@ -84,9 +86,7 @@
 
         function checkAnswer() {
             if (dailyCorrectCount >= maxQuestionsPerDay) {
-                document.getElementById('feedback').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
-                document.getElementById('answerInput').style.display = 'none'; 
-                document.getElementById('checkButton').style.display = 'none'; 
+                endQuiz(); 
                 return;
             }
 
@@ -106,22 +106,13 @@
                     date: formattedTime,
                 });
 
-                setCookie('correctAnswers', JSON.stringify(correctAnswers), 30); // 쿠키 저장
-
+                setCookie('correctAnswers', JSON.stringify(correctAnswers), 30); // 30일 동안 쿠키 저장
                 document.getElementById('answerInput').value = ''; // 입력창 초기화
-                document.getElementById('feedback').innerText = '정답입니다!';
-                
-                if (correctAnswers.length >= maxQuestionsPerDay) { // 3문제 이상 맞춘 경우
-                    document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
-                    document.getElementById('answerInput').style.display = 'none'; 
-                    document.getElementById('checkButton').style.display = 'none'; 
-                } else {
-                    displayQuestion(); // 다음 문제로 넘어감
-                }
 
                 displayResults(); // 결과 업데이트
+                displayQuestion(); // 다음 문제 표시
             } else {
-                document.getElementById('feedback').innerText = '틀렸습니다. 힌트: ' + currentQuestion.hint; 
+                document.getElementById('feedback').innerText = `틀렸습니다. 힌트: ${currentQuestion.hint}`;
             }
         }
 
@@ -149,11 +140,17 @@
             return today.toISOString().split('T')[0]; // YYYY-MM-DD
         }
 
+        function endQuiz() {
+            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
+            document.getElementById('answerInput').style.display = 'none';
+            document.getElementById('checkButton').style.display = 'none';
+        }
+
         function displayResults() {
             const resultsDiv = document.getElementById('results'); // 결과 표시 영역
-            resultsDiv.innerHTML = ''; // 결과 초기화
+            resultsDiv.innerHTML = ''; 
 
-            correctAnswers.forEach((answer, index) => {
+            dailyCorrectAnswers.forEach((answer, index) => {
                 const problemNumber = (index % 3) + 1; // 각 일차의 문제 번호
                 const dayNumber = Math.floor(index / 3) + 1; // 며칠차인지
                 const resultText = document.createElement('p');
@@ -163,13 +160,10 @@
             });
         }
 
-        if (dailyCorrectCount < maxQuestionsPerDay) {
-            displayQuestion(); // 첫 번째 문제 표시
+        if (dailyCorrectCount >= maxQuestionsPerDay) {
+            endQuiz(); // 3문제 이상 푼 경우 퀴즈 종료
         } else {
-            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
-            document.getElementById('answerInput').style.display = 'none';
-            document.getElementById('checkButton').style.display = 'none';
-            document.getElementById('feedback').style.display = 'none';
+            displayQuestion(); // 문제 표시
         }
 
         displayResults(); // 이전 결과 출력
