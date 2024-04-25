@@ -53,22 +53,28 @@
         ];
 
         const maxQuestionsPerDay = 3; // 하루에 최대 3문제
-        const today = getToday(); // 오늘 날짜 (한국 표준시)
-        let correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : [];
+        const today = getToday(); // 한국 표준시에서 오늘 날짜 (YYYY-MM-DD)
         
-        // 오늘 푼 문제의 수를 확인
-        let dailyCorrectAnswers = correctAnswers.filter(answer => answer.date.startsWith(today));
-        let dailyCorrectCount = dailyCorrectAnswers.length;
+        // 쿠키에서 정답 기록을 확인
+        let correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : [];
+        let dailyCorrectCount = correctAnswers.filter(answer => answer.date.startsWith(today)).length; // 오늘 정답 개수
+
+        // 오늘 문제를 다 풀었는지 확인하고, 그렇다면 퀴즈 종료
+        if (dailyCorrectCount >= maxQuestionsPerDay) {
+            endQuiz(); // 더 이상 문제를 풀 수 없게 함
+        } else {
+            displayQuestion(); // 문제 표시
+        }
 
         function displayQuestion() {
             if (dailyCorrectCount >= maxQuestionsPerDay) {
-                endQuiz(); // 하루에 3문제를 풀었을 때 종료
+                endQuiz(); // 퀴즈 종료
                 return;
             }
             
             const randomIndex = Math.floor(Math.random() * quizQuestions.length); // 무작위 문제 선택
             const currentQuestion = quizQuestions[randomIndex];
-            document.getElementById('questionText').innerText = currentQuestion.question; // 질문 표시
+            document.getElementById('questionText').innerText = currentQuestion.question; // 문제 출력
         }
 
         function checkAnswer() {
@@ -94,16 +100,22 @@
                 });
 
                 setCookie('correctAnswers', JSON.stringify(correctAnswers), 30); // 30일 쿠키 저장
+                dailyCorrectCount += 1; // 하루에 정답 횟수 증가
+                
                 document.getElementById('answerInput').value = ''; // 입력창 초기화
-
-                dailyCorrectCount += 1; // 일일 정답 횟수 증가
-                dailyCorrectAnswers.push({ question: currentQuestion.question, date: formattedTime, correctAnswer: correctAnswer }); // 정답 기록
+                document.getElementById('feedback').innerText = `정답입니다!`;
 
                 displayResults(); // 결과 업데이트
                 displayQuestion(); // 다음 문제 표시
             } else {
                 document.getElementById('feedback').innerText = `틀렸습니다. 힌트: ${currentQuestion.hint}`;
             }
+        }
+
+        function endQuiz() {
+            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
+            document.getElementById('answerInput').style.display = 'none'; // 입력창 숨김
+            document.getElementById('checkButton').style.display = 'none'; // 버튼 숨김
         }
 
         function setCookie(name, value, days) {
@@ -130,17 +142,11 @@
             return today.toISOString().split('T')[0]; // YYYY-MM-DD
         }
 
-        function endQuiz() {
-            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
-            document.getElementById('answerInput').style.display = 'none'; // 입력창 숨김
-            document.getElementById('checkButton').style.display = 'none'; // 버튼 숨김
-        }
-
         function displayResults() {
             const resultsDiv = document.getElementById('results'); // 결과 표시 영역
             resultsDiv.innerHTML = ''; // 결과 초기화
 
-            dailyCorrectAnswers.forEach((answer, index) => {
+            correctAnswers.filter(answer => answer.date.startsWith(today)).forEach((answer, index) => {
                 const problemNumber = (index % 3) + 1; // 각 일차의 문제 번호
                 const dayNumber = Math.floor(index / 3) + 1; // 며칠차인지
                 const resultText = document.createElement('p');
@@ -148,12 +154,6 @@
                 resultText.innerText = `${dayNumber}일차 ${problemNumber}번 문제: 정답 (답: ${answer.correctAnswer}, 시간: ${answer.date})`;
                 resultsDiv.appendChild(resultText); // 결과 표시
             });
-        }
-
-        if (dailyCorrectCount >= maxQuestionsPerDay) {
-            endQuiz(); // 퀴즈 종료
-        } else {
-            displayQuestion(); // 문제 표시
         }
 
         displayResults(); // 이전 결과 출력
