@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>영양소 퀴즈</title>
+    <title>영양학 퀴즈</title>
     <style>
         body {
             font-family: 'Comic Sans MS', sans-serif;
@@ -20,6 +20,20 @@
             background-color: #ffffff;
         }
 
+        .progress {
+            display: inline-block;
+            background-color: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .progress-inner {
+            background-color: #ff4500;
+            height: 100%;
+            border-radius: 10px;
+        }
+
         .results {
             margin-top: 20px;
             text-align: left;
@@ -32,100 +46,94 @@
 </head>
 <body>
     <div class="quiz-container">
-        <h1>영양소 퀴즈</h1>
-        <p id="questionText">여기에 문제가 표시됩니다.</p>
+        <h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;">
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p>
         <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
         <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
         <p id="feedback">정답을 입력하세요.</p>
 
         <div class="results" id="results">
-            <!-- 정답 기록을 표시할 영역 -->
+            <!-- 결과 표시 영역 -->
         </div>
     </div>
 
     <script>
         const quizQuestions = [
-            { question: '하루에 권장되는 물 섭취량은?', answer: '8잔', hint: '하루에 8잔의 물을 마시세요.' },
-            { question: '과일과 채소를 충분히 섭취하는 것이 좋은 이유는?', answer: '비타민', hint: '건강에 중요한 영양소입니다.' },
-            { question: '하루에 필요한 단백질의 양은 무엇에 따라 결정되나요?', answer: '체중', hint: '몸무게에 따라 결정됩니다.' },
-            { question: '칼슘이 풍부한 음식은 무엇인가요?', answer: '우유', hint: '흰색 액체로, 우유를 생각하세요.' },
+            { question: '하루에 권장되는 물 섭취량은?', answer: '8잔', hint: '8개의 컵입니다.' },
+            { question: '과일과 채소를 충분히 섭취하는 것이 좋은 이유는?', answer: '비타민', hint: '필수 영양소입니다.' },
+            { question: '하루에 필요한 단백질의 양은 무엇에 따라 결정되나요?', answer: '체중', hint: '몸무게에 비례합니다.' },
+            { question: '칼슘이 풍부한 음식은 무엇인가요?', answer: '우유', hint: '흰색 액체입니다.' },
+            { question: '탄수화물은 몸에 어떤 역할을 하나요?', answer: '에너지', hint: '우리의 활동에 필요한 것.' },
         ];
 
-        const maxQuestionsPerDay = 3;
-        const today = getToday(); // 한국 시간 기준으로 오늘 날짜
+        const totalQuestions = quizQuestions.length;
+        let currentQuestionIndex = 0;
         let correctAnswers = getCookie('correctAnswers') ? JSON.parse(getCookie('correctAnswers')) : [];
-        let dailyCorrectCount = correctAnswers.filter(answer => answer.date.startsWith(today)).length;
+        let currentAttempts = 0;
 
-        if (dailyCorrectCount >= maxQuestionsPerDay) {
-            endQuiz();
+        const today = new Date().toISOString().split('T')[0];
+        const lastAnsweredDay = getCookie('lastAnsweredDay');
+        const todayQuestionCount = getCookie('todayQuestionCount') ? parseInt(getCookie('todayQuestionCount')) : 0;
+
+        if (today === lastAnsweredDay && todayQuestionCount >= 3) {
+            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
+            document.getElementById('answerInput').style.display = 'none'; // 입력 숨김
+            document.getElementById('checkButton').style.display = 'none'; // 버튼 숨김
+            document.getElementById('feedback').style.display = 'none'; // 피드백 숨김
         } else {
-            shuffleQuestions();
-            displayQuestion();
-        }
-
-        function shuffleQuestions() {
-            // 문제를 랜덤하게 섞기
-            for (let i = quizQuestions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [quizQuestions[i], quizQuestions[j]] = [quizQuestions[j], quizQuestions[i]]; // 문제 순서 섞기
-            }
+            displayQuestion(); // 첫 번째 문제 표시
         }
 
         function displayQuestion() {
-            if (dailyCorrectCount >= maxQuestionsPerDay) {
-                endQuiz();
-                return;
+            if (currentQuestionIndex < totalQuestions) {
+                const currentQuestion = quizQuestions[currentQuestionIndex];
+                document.getElementById('questionText').innerText = currentQuestion.question; // 질문 표시
+            } else {
+                alert('모든 문제가 끝났습니다.'); // 모든 질문이 끝난 경우
             }
-
-            const currentQuestion = quizQuestions[dailyCorrectCount];
-            document.getElementById('questionText').innerText = currentQuestion.question;
-            document.getElementById('answerInput').value = ''; // 입력창 초기화
-            document.getElementById('feedback').innerText = '정답을 입력하세요.';
         }
 
         function checkAnswer() {
             const userAnswer = document.getElementById('answerInput').value.trim();
-            const currentQuestionText = document.getElementById('questionText').innerText;
-            const currentQuestion = quizQuestions.find(q => q.question === currentQuestionText);
-            const correctAnswer = currentQuestion.answer;
+            const correctAnswer = quizQuestions[currentQuestionIndex].answer; // 정답
+            const hint = quizQuestions[currentQuestionIndex].hint; // 힌트
+
+            currentAttempts++; // 시도 횟수 증가
 
             if (userAnswer === correctAnswer) {
-                const currentTime = new Date(Date.now() + 9 * 60 * 60 * 1000); // 한국 표준시
+                const currentTime = new Date();
                 const formattedTime = `${currentTime.getFullYear()}년 ${currentTime.getMonth() + 1}월 ${currentTime.getDate()}일 ${currentTime.getHours()}시 ${currentTime.getMinutes()}분 ${currentTime.getSeconds()}초`;
 
                 correctAnswers.push({
-                    question: currentQuestion.question,
+                    question: quizQuestions[currentQuestionIndex].question,
                     correct: true,
                     correctAnswer: correctAnswer,
+                    attempts: currentAttempts,
                     date: formattedTime, // 정답을 맞춘 시간
                 });
 
-                setCookie('correctAnswers', JSON.stringify(correctAnswers), 30); // 30일 동안 쿠키 저장
-                dailyCorrectCount++; // 오늘 정답 횟수 증가
+                setCookie('correctAnswers', JSON.stringify(correctAnswers), 30); // 쿠키 30일 유지
+                setCookie('lastAnsweredDay', today, 1); // 하루 동안만 저장
+                setCookie('todayQuestionCount', todayQuestionCount + 1, 1); // 하루에 문제 3개 제한
+
+                document.getElementById('feedback').innerText = `정답입니다! ${currentAttempts}번 만에 맞췄습니다. 내일 다시 오세요.`;
+                document.getElementById('answerInput').style.display = 'none'; // 입력 숨김
+                document.getElementById('checkButton').style.display = 'none'; // 버튼 숨김
 
                 displayResults(); // 결과 표시
-
-                if (dailyCorrectCount >= maxQuestionsPerDay) {
-                    endQuiz(); // 하루에 3문제를 다 풀었으므로 종료
-                } else {
-                    displayQuestion(); // 다음 문제 표시
-                }
             } else {
-                document.getElementById('feedback').innerText = `틀렸습니다. 힌트: ${currentQuestion.hint}`; // 힌트 제공
+                document.getElementById('feedback').innerText = `틀렸습니다. 힌트: ${hint}`; // 오답 시 힌트 제공
             }
-        }
-
-        function endQuiz() {
-            document.getElementById('questionText').innerText = '오늘의 문제를 모두 풀었습니다. 내일 다시 오세요.';
-            document.getElementById('answerInput').style.display = 'none'; // 입력창 숨김
-            document.getElementById('checkButton').style.display = 'none'; // 버튼 숨김
         }
 
         function setCookie(name, value, days) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // 쿠키 유효 기간 설정
             const expires = `expires=${date.toUTCString()}`;
-            document.cookie = `${name}=${value};${expires};path=/`;
+            document.cookie = `${name}=${value};${expires};path=/`; // 쿠키 설정
         }
 
         function getCookie(name) {
@@ -140,24 +148,16 @@
             return null;
         }
 
-        function getToday() {
-            const today = new Date(Date.now() + 9 * 60 * 60 * 1000); // 한국 표준시
-            return today.toISOString().split('T')[0]; // YYYY-MM-DD
-        }
-
         function displayResults() {
             const resultsDiv = document.getElementById('results'); // 결과 표시 영역
             resultsDiv.innerHTML = ''; // 결과 초기화
 
-            correctAnswers.filter(answer => answer.date.startswith(today)).forEach((answer, index) => {
-                const problemNumber = index + 1; // 각 문제의 번호
+            correctAnswers.forEach((answer, index) => {
                 const resultText = document.createElement('p');
-                resultText.innerText = `1일차 ${problemNumber}번 문제: 정답(답: ${answer.correctAnswer}, 시간: ${answer.date})`;
-                resultsDiv.appendChild(resultText); // 결과 표시
+                resultText.innerText = `${index + 1}일차: 정답 (답: ${answer.correctAnswer}, 시간: ${answer.date})`; // 기록 표시
+                resultsDiv.appendChild(resultText); // 결과 추가
             });
         }
-
-        displayResults(); // 이전 결과 표시
     </script>
 </body>
 </html>
