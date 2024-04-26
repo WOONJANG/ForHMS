@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영양학 퀴즈</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        .progress {
+            display: inline-block;
+            background-color: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .progress-inner {
+            background-color: #ff4500;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;">
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p>
+        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
+        <p id="feedback">정답을 입력하세요.</p>
+
+        <div class="results" id="results">
+            <!-- 결과 표시 영역 -->
+        </div>
+    </div>
+
+    <script>
+        // 쿠키 가져오기
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return null;
+        }
+
+        // 쿠키 설정하기
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        const questions = [
+            {
+                question: '비타민 C가 풍부한 과일은?',
+                answer: '오렌지',
+                hint: '주스에 자주 사용되며, 색깔은 주황색입니다.'
+            },
+            {
+                question: '단백질이 가장 많이 함유된 음식은?',
+                answer: '닭고기',
+                hint: '이것은 흔히 치킨으로 만들어지며, 닭에서 나옵니다.'
+            },
+            {
+                question: '칼슘이 풍부한 음식은?',
+                answer: '우유',
+                hint: '이 음료는 젖소에서 생산되며, 주로 아침 식사와 함께 제공됩니다.'
+            }
+        ];
+
+        // 퀴즈 한정
+        const maxQuestionsPerDay = 3;
+
+        let currentQuestionIndex = -1;
+        let correctAnswers = 0;
+        let attempts = 0;
+        let currentQuestionAttempts = 0;
+
+        const today = new Date().toISOString().split('T')[0]; // 날짜 정보만 가져오기
+        const quizAttempts = getCookie('quizAttempts') || '{}'; // 쿠키에서 시도 횟수 가져오기
+
+        const parsedAttempts = JSON.parse(quizAttempts);
+
+        // 오늘 이미 3번 풀었는지 확인
+        if (parsedAttempts[today] && parsedAttempts[today] >= maxQuestionsPerDay) {
+            document.getElementById('feedback').innerText = '오늘은 이미 3문제를 풀었습니다.';
+            document.getElementById('checkButton').disabled = true;
+            document.getElementById('answerInput').disabled = true;
+        } else {
+            getNextQuestion();
+        }
+
+        function getNextQuestion() {
+            if (currentQuestionIndex >= 0) {
+                // 이미 맞춘 문제를 기록에 추가
+                const results = document.getElementById('results');
+                const date = new Date().toISOString();
+                results.innerHTML += `<p>1일차 ${currentQuestionAttempts + 1}번 문제: 정답 ( ${questions[currentQuestionIndex].answer}, ${date})</p>`;
+            }
+
+            currentQuestionAttempts = 0;
+            currentQuestionIndex = Math.floor(Math.random() * questions.length);
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const questionText = document.getElementById('questionText');
+            questionText.innerText = questions[currentQuestionIndex].question;
+        }
+
+        function checkAnswer() {
+            const answerInput = document.getElementById('answerInput').value.trim();
+            const feedback = document.getElementById('feedback');
+
+            currentQuestionAttempts++;
+
+            if (answerInput.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
+                correctAnswers++;
+                feedback.innerText = `정답입니다! (시도 횟수: ${currentQuestionAttempts})`;
+                getNextQuestion();
+            } else {
+                feedback.innerText = `오답입니다. 힌트: ${questions[currentQuestionIndex].hint}`;
+            }
+
+            attempts++;
+
+            // 시도 횟수 기록 및 쿠키에 업데이트
+            const today = new Date().toISOString().split('T')[0]; // 날짜 정보만 가져오기
+            const parsedAttempts = JSON.parse(getCookie('quizAttempts') || '{}');
+            parsedAttempts[today] = parsedAttempts[today] || 0;
+            parsedAttempts[today]++;
+            setCookie('quizAttempts', JSON.stringify(parsedAttempts), 1);
+
+            const progressInner = document.getElementById('progressInner');
+            const progressPercentage = Math.min((parsedAttempts[today] / maxQuestionsPerDay) * 100, 100);
+            progressInner.style.width = `${progressPercentage}%`;
+
+            if (parsedAttempts[today] >= maxQuestionsPerDay) {
+                document.getElementById('checkButton').disabled = true;
+                document.getElementById('answerInput').disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
