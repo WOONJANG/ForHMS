@@ -114,13 +114,12 @@
             }
         ];
 
-        // 퀴즈 한정
-        const maxQuestionsPerDay = 3;
+        const maxQuestionsPerDay = 3; // 하루 최대 문제 수 제한
 
-        let currentQuestionIndex = -1;
         let correctAnswers = 0;
         let attempts = 0;
         let currentQuestionAttempts = 0;
+        let currentQuestionIndex = -1;
 
         const today = new Date().toISOString().split('T')[0]; // 날짜 정보만 가져오기
         const quizAttempts = getCookie('quizAttempts') || '{}'; // 쿠키에서 시도 횟수 가져오기
@@ -137,13 +136,6 @@
         }
 
         function getNextQuestion() {
-            if (currentQuestionIndex >= 0) {
-                // 이미 맞춘 문제를 기록에 추가
-                const results = document.getElementById('results');
-                const date = new Date().toISOString();
-                results.innerHTML += `<p>1일차 ${currentQuestionAttempts + 1}번 문제: 정답 ( ${questions[currentQuestionIndex].answer}, ${date})</p>`;
-            }
-
             currentQuestionAttempts = 0;
             currentQuestionIndex = Math.floor(Math.random() * questions.length);
             displayQuestion();
@@ -158,32 +150,31 @@
             const answerInput = document.getElementById('answerInput').value.trim();
             const feedback = document.getElementById('feedback');
 
-            currentQuestionAttempts++;
+            currentQuestionAttempts++; // 시도 횟수 증가
 
             if (answerInput.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
                 correctAnswers++;
                 feedback.innerText = `정답입니다! (시도 횟수: ${currentQuestionAttempts})`;
-                getNextQuestion();
+
+                // 문제 풀기 수 카운트
+                const today = new Date().toISOString().split('T')[0]; // 날짜 정보만 가져오기
+                const parsedAttempts = JSON.parse(getCookie('quizAttempts') || '{}');
+                parsedAttempts[today] = (parsedAttempts[today] || 0) + 1;
+                setCookie('quizAttempts', JSON.stringify(parsedAttempts), 1);
+
+                const progressInner = document.getElementById('progressInner');
+                const progressPercentage = (parsedAttempts[today] / maxQuestionsPerDay) * 100;
+                progressInner.style.width = `${progressPercentage}%`;
+
+                if (parsedAttempts[today] >= maxQuestionsPerDay) {
+                    document.getElementById('checkButton').disabled = true;
+                    document.getElementById('answerInput').disabled = true;
+                    document.getElementById('answerInput').value = ''; // 입력 필드 비우기
+                } else {
+                    getNextQuestion(); // 다음 문제로 이동
+                }
             } else {
                 feedback.innerText = `오답입니다. 힌트: ${questions[currentQuestionIndex].hint}`;
-            }
-
-            attempts++;
-
-            // 시도 횟수 기록 및 쿠키에 업데이트
-            const today = new Date().toISOString().split('T')[0]; // 날짜 정보만 가져오기
-            const parsedAttempts = JSON.parse(getCookie('quizAttempts') || '{}');
-            parsedAttempts[today] = parsedAttempts[today] || 0;
-            parsedAttempts[today]++;
-            setCookie('quizAttempts', JSON.stringify(parsedAttempts), 1);
-
-            const progressInner = document.getElementById('progressInner');
-            const progressPercentage = Math.min((parsedAttempts[today] / maxQuestionsPerDay) * 100, 100);
-            progressInner.style.width = `${progressPercentage}%`;
-
-            if (parsedAttempts[today] >= maxQuestionsPerDay) {
-                document.getElementById('checkButton').disabled = true;
-                document.getElementById('answerInput').disabled = true;
             }
         }
     </script>
