@@ -68,7 +68,37 @@ window.addEventListener('beforeunload', function (e) {
 });
 
         
-        // 쿠키 가져오기
+       
+
+
+        
+    </script>
+</head>
+<body>
+    <div class="button-grid">
+    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
+    </div>
+    <div class="quiz-container" id="content">
+        <h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;">
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p>
+        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+        <div class="button-grid">
+        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
+        </div>
+        <p id="feedback">정답을 입력하세요.</p>
+
+        <div class="results" id="results">
+            <!-- 결과 표시 영역 -->
+        </div>
+    </div>
+</body>
+<script>
+ // 쿠키 가져오기
         function getCookie(name) {
             const value = "; " + document.cookie;
             const parts = value.split("; " + name + "=");
@@ -214,32 +244,6 @@ window.addEventListener('beforeunload', function (e) {
                 feedback.innerText = `오답입니다. 힌트: ${questions[currentQuestionIndex].hint}`;
             }
         }
-
-
-        
-    </script>
-</head>
-<body>
-    <div class="button-grid">
-    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
-    </div>
-    <div class="quiz-container" id="content">
-        <h1>영양학 퀴즈</h1>
-        <div class="progress" style="width: 100%;">
-            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
-        </div>
-        <p id="questionText">여기에 질문이 표시됩니다.</p>
-        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
-        <div class="button-grid">
-        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
-        </div>
-        <p id="feedback">정답을 입력하세요.</p>
-
-        <div class="results" id="results">
-            <!-- 결과 표시 영역 -->
-        </div>
-    </div>
-</body>
+	
+</script>
 </html>
