@@ -48,137 +48,21 @@
     </style>
 </head>
     <script>
+
+   
         // DOM이 완전히 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function () {
   const content = document.getElementById("content");
 
-  // 요소가 존재하는지 확인
-  if (!content) {
-    console.error("Element with Class 'content' not found");
-    return; // 요소가 없으면 더 이상 실행하지 않고 종료
-  }
-  // 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-
-  // 모바일과 PC에 따라 다르게 동작하도록 함수 정의
-  function adjustContent() {
-    if (mediaQuery.matches) {
-     
-        
-        // 모바일인 경우
-     content.innerHTML = `
-
-		<h1>일일 영양 정보 계산기</h1>
-        <p>체중(kg)을 입력하세요:</p>
-        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
-
-        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
-            <div class="gauge-container">
-                <h3>일일 권장 칼로리</h3>
-                <canvas id="calorieGauge"></canvas>
-                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 탄수화물</h3>
-                <canvas id="carbsGauge"></canvas>
-                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 단백질</h3>
-                <canvas id="proteinsGauge"></canvas>
-                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 지방</h3>
-                <canvas id="fatsGauge"></canvas>
-                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-        </div>
-    
-	`;
-      content.style.backgroundColor = "#e0f7fa";
-    } else {
 
 
-        
-      // PC인 경우
-      content.innerHTML = `
 
-        
-       	<h1>일일 영양 정보 계산기</h1>
-        <p>체중(kg)을 입력하세요:</p>
-        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
 
-        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
-            <div class="gauge-container">
-                <h3>일일 권장 칼로리</h3>
-                <canvas id="calorieGauge"></canvas>
-                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 탄수화물</h3>
-                <canvas id="carbsGauge"></canvas>
-                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 단백질</h3>
-                <canvas id="proteinsGauge"></canvas>
-                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 지방</h3>
-                <canvas id="fatsGauge"></canvas>
-                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-        </div>
-        
-	`;
-      content.style.backgroundColor = "#fce4ec";
-    }
-  }
 
-  // 페이지 로드 시 환경에 맞게 조정
-  adjustContent();
 
-  // 화면 크기 변경 시 환경을 다시 확인하여 콘텐츠 조정
-  mediaQuery.addEventListener("change", adjustContent);
-});
 
-    </script>
-<body>
-    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
-    <div class="container" id="content">
-        <h1>일일 영양 정보 계산기</h1>
-        <p>체중(kg)을 입력하세요:</p>
-        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
 
-        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
-            <div class="gauge-container">
-                <h3>일일 권장 칼로리</h3>
-                <canvas id="calorieGauge"></canvas>
-                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 탄수화물</h3>
-                <canvas id="carbsGauge"></canvas>
-                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 단백질</h3>
-                <canvas id="proteinsGauge"></canvas>
-                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-            <div class="gauge-container">
-                <h3>일일 권장 지방</h3>
-                <canvas id="fatsGauge"></canvas>
-                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Chart.js 로드 -->
+<!-- Chart.js 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let calorieGauge;
@@ -284,5 +168,113 @@ document.addEventListener("DOMContentLoaded", function () {
 
         initGauges(); /* 차트 초기화 */
     </script>
+
+
+
+
+
+
+
+
+
+
+	
+  // 요소가 존재하는지 확인
+  if (!content) {
+    console.error("Element with Class 'content' not found");
+    return; // 요소가 없으면 더 이상 실행하지 않고 종료
+  }
+  // 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+  // 모바일과 PC에 따라 다르게 동작하도록 함수 정의
+  function adjustContent() {
+    if (mediaQuery.matches) {
+     
+        
+        // 모바일인 경우
+     content.innerHTML = `
+
+		<h1>일일 영양 정보 계산기</h1>
+        <p>체중(kg)을 입력하세요:</p>
+        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
+
+        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
+            <div class="gauge-container">
+                <h3>일일 권장 칼로리</h3>
+                <canvas id="calorieGauge"></canvas>
+                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 탄수화물</h3>
+                <canvas id="carbsGauge"></canvas>
+                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 단백질</h3>
+                <canvas id="proteinsGauge"></canvas>
+                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 지방</h3>
+                <canvas id="fatsGauge"></canvas>
+                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+        </div>
+    
+	`;
+      content.style.backgroundColor = "#e0f7fa";
+    } else {
+
+
+        
+      // PC인 경우
+      
+      content.style.backgroundColor = "#fce4ec";
+    }
+  }
+
+  // 페이지 로드 시 환경에 맞게 조정
+  adjustContent();
+
+  // 화면 크기 변경 시 환경을 다시 확인하여 콘텐츠 조정
+  mediaQuery.addEventListener("change", adjustContent);
+});
+
+    </script>
+<body>
+    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
+    <div class="container" id="content">
+        <h1>일일 영양 정보 계산기</h1>
+        <p>체중(kg)을 입력하세요:</p>
+        <input type="number" id="weight" min="0" placeholder="예: 45" oninput="calculate()" /> <!-- 입력이 변경되면 자동으로 계산 -->
+
+        <div id="result" class="result"> <!-- 2열 2행 레이아웃 -->
+            <div class="gauge-container">
+                <h3>일일 권장 칼로리</h3>
+                <canvas id="calorieGauge"></canvas>
+                <div class="gauge-label" id="calorieLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 탄수화물</h3>
+                <canvas id="carbsGauge"></canvas>
+                <div class="gauge-label" id="carbsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 단백질</h3>
+                <canvas id="proteinsGauge"></canvas>
+                <div class="gauge-label" id="proteinsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+            <div class="gauge-container">
+                <h3>일일 권장 지방</h3>
+                <canvas id="fatsGauge"></canvas>
+                <div class="gauge-label" id="fatsLabel">--</div> <!-- 차트 중앙 레이블 -->
+            </div>
+        </div>
+    </div>
+
+    
 </body>
 </html>
