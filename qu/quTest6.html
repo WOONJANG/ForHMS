@@ -177,7 +177,7 @@
 
             if (answerInput.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
                 correctAnswers++;
-                feedback.innerText = `정답입니다! (시도 횟수: ${currentQuestionAttempts}+1)`;
+                feedback.innerText = `정답입니다! (시도 횟수: ${currentQuestionAttempts})`+1;
                 let answerInput = document.getElementById('answerInput');
                 answerInput.value = '';
                 const formattedDate = getKoreanFormattedDate(); // 한국 시각 포맷
