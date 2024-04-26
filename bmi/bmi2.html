@@ -59,35 +59,7 @@
         }
     </style>
 </head>
-<body>
-    <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
-    <div class="bmi-container" id="content">
-        <h1>BMI 계산기</h1> <!-- 제목 -->
-        <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
-        
-        <!-- 입력 필드 -->
-        <label for="height">신장 (cm):</label>
-        <input type="number" id="height" placeholder="신장" />
-        <br>
-        <label for="weight">체중 (kg):</label>
-        <input type="number" id="weight" placeholder="체중" />
-        <br>
-        <label for="age">만나이:</label>
-        <input type="number" id="age" placeholder="만나이" />
-        <br>
-        <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
-        
-        <!-- 게이지 표시 -->
-        <div class="gauge">
-            <div id="gaugeIndicator" class="gauge-indicator"></div>
-        </div>
-
-        <div id="bmiResult" class="bmi-result">결과가 여기에 표시됩니다.</div> <!-- BMI 결과 -->
-    </div>
-
-    <script>
+  <script>
 
 // DOM이 완전히 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function () {
@@ -238,5 +210,34 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("bmiResult").innerText = resultText; /* 결과 텍스트 설정 */
         }
     </script>
+<body>
+    <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
+    <div class="bmi-container" id="content">
+        <h1>BMI 계산기</h1> <!-- 제목 -->
+        <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
+        
+        <!-- 입력 필드 -->
+        <label for="height">신장 (cm):</label>
+        <input type="number" id="height" placeholder="신장" />
+        <br>
+        <label for="weight">체중 (kg):</label>
+        <input type="number" id="weight" placeholder="체중" />
+        <br>
+        <label for="age">만나이:</label>
+        <input type="number" id="age" placeholder="만나이" />
+        <br>
+        <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
+        
+        <!-- 게이지 표시 -->
+        <div class="gauge">
+            <div id="gaugeIndicator" class="gauge-indicator"></div>
+        </div>
+
+        <div id="bmiResult" class="bmi-result">결과가 여기에 표시됩니다.</div> <!-- BMI 결과 -->
+    </div>
+
+  
 </body>
 </html>
