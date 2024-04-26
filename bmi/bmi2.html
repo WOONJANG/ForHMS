@@ -61,6 +61,53 @@
 </head>
   <script>
 
+function calculateBMI() {
+            const height = parseFloat(document.getElementById("height").value); /* 신장 값 */
+            const weight = parseFloat(document.getElementById("weight").value); /* 체중 값 */
+            const age = parseFloat(document.getElementById("age").value); /* 만나이 값 */
+            
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                document.getElementById("bmiResult").innerText = "올바른 신장과 체중을 입력하세요."; /* 잘못된 입력 처리 */
+                return;
+            }
+            
+            const heightInMeters = height / 100; /* 신장을 미터 단위로 변환 */
+            const bmi = weight / (heightInMeters * heightInMeters); /* BMI 계산 */
+            const gaugeWidth = 100; /* 게이지의 전체 너비 */
+            
+            let resultText = ""; /* 결과 텍스트 초기화 */
+            let gaugeColor = ""; /* 게이지 색상 초기화 */
+            let gaugeValue = 0; /* 게이지 값 초기화 */
+            
+            if (bmi < 18.5) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 18.5 && bmi < 23) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 18.5) / (23 - 18.5)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23 && bmi < 25) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23) / (25 - 23)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 25 && bmi < 30) {
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(((bmi - 25) / (30 - 25)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else {
+                resultText = `고도비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#f00"; /* 고도비만은 빨간색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+            
+            const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
+            indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
+            indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
+            
+            document.getElementById("bmiResult").innerText = resultText; /* 결과 텍스트 설정 */
+        }
+      
 // DOM이 완전히 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function () {
   const content = document.getElementById("content");
@@ -163,52 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         
-        function calculateBMI() {
-            const height = parseFloat(document.getElementById("height").value); /* 신장 값 */
-            const weight = parseFloat(document.getElementById("weight").value); /* 체중 값 */
-            const age = parseFloat(document.getElementById("age").value); /* 만나이 값 */
-            
-            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-                document.getElementById("bmiResult").innerText = "올바른 신장과 체중을 입력하세요."; /* 잘못된 입력 처리 */
-                return;
-            }
-            
-            const heightInMeters = height / 100; /* 신장을 미터 단위로 변환 */
-            const bmi = weight / (heightInMeters * heightInMeters); /* BMI 계산 */
-            const gaugeWidth = 100; /* 게이지의 전체 너비 */
-            
-            let resultText = ""; /* 결과 텍스트 초기화 */
-            let gaugeColor = ""; /* 게이지 색상 초기화 */
-            let gaugeValue = 0; /* 게이지 값 초기화 */
-            
-            if (bmi < 18.5) {
-                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#00f"; /* 저체중은 파란색 */
-                gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else if (bmi >= 18.5 && bmi < 23) {
-                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#0f0"; /* 정상은 초록색 */
-                gaugeValue = Math.min(((bmi - 18.5) / (23 - 18.5)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else if (bmi >= 23 && bmi < 25) {
-                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#ff0"; /* 과체중은 노란색 */
-                gaugeValue = Math.min(((bmi - 23) / (25 - 23)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else if (bmi >= 25 && bmi < 30) {
-                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#ffa500"; /* 비만은 주황색 */
-                gaugeValue = Math.min(((bmi - 25) / (30 - 25)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else {
-                resultText = `고도비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#f00"; /* 고도비만은 빨간색 */
-                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
-            }
-            
-            const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
-            indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
-            indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
-            
-            document.getElementById("bmiResult").innerText = resultText; /* 결과 텍스트 설정 */
-        }
+        
     </script>
 <body>
     <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
