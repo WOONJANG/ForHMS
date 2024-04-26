@@ -75,23 +75,20 @@
     <script>
 
 
-// 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
-// 모바일 환경은 768px 이하의 디바이스 너비로 간주
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
+// 메인 pc, mo 접속시 class 추가
+const filter = "win16|win32|win64|mac|macintel";
 
-// 모바일과 PC에 따라 다르게 동작하도록 함수 정의
-function adjustContent() {
-  const content = document.getElementById("content");
-
-  if (isMobile) {
-    // 모바일인 경우
-    content.innerHTML = "모바일 환경에서 보여줄 콘텐츠";
-    content.style.backgroundColor = "#e0f7fa"; // 모바일 환경에 맞는 스타일 적용
-  } else {
-    // PC인 경우
-    content.innerHTML = "PC 환경에서 보여줄 콘텐츠";
-    content.style.backgroundColor = "#fce4ec"; // PC 환경에 맞는 스타일 적용
-  }
+if (navigator.platform) {
+    const body = document.querySelector("body");
+    if (0 > filter.indexOf(navigator.platform)) {
+        // 모바일로 접속한 경우
+        body.classList.add("mo_ver");
+        console.log(navigator.platform + " 모바일 접속");
+    } else {
+        // PC로 접속한 경우 (Windows 등)
+        body.classList.add("pc_ver");
+        console.log(navigator.platform + " PC접속");
+    }
 }
 
 // 페이지 로드 시 환경에 맞게 조정
