@@ -64,92 +64,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   const content = document.getElementById("content");
 
-  // 요소가 존재하는지 확인
-  if (!content) {
-    console.error("Element with Class 'content' not found");
-    return; // 요소가 없으면 더 이상 실행하지 않고 종료
-  }
-  // 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-
-  // 모바일과 PC에 따라 다르게 동작하도록 함수 정의
-  function adjustContent() {
-    if (mediaQuery.matches) {
-     
-        
-        // 모바일인 경우
-     content.innerHTML = `
-
-		<h1>영양학 퀴즈</h1>
-        <div class="progress" style="width: 100%;">
-            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
-        </div>
-        <p id="questionText">여기에 질문이 표시됩니다.</p>
-        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
-        <div class="button-grid">
-        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
-        </div>
-        <p id="feedback">정답을 입력하세요.</p>
-
-        <div class="results" id="results">
-            <!-- 결과 표시 영역 -->
-        </div>
-    
-	`;
-      content.style.backgroundColor = "#e0f7fa";
-    } else {
-
-
-        
-      // PC인 경우
-      content.innerHTML = `
-
-        
-       	<h1>영양학 퀴즈</h1>
-        <div class="progress" style="width: 100%;">
-            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
-        </div>
-        <p id="questionText">여기에 질문이 표시됩니다.</p>
-        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
-        <div class="button-grid">
-        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
-        </div>
-        <p id="feedback">정답을 입력하세요.</p>
-
-        <div class="results" id="results">
-            <!-- 결과 표시 영역 -->
-        </div>
-        
-	`;
-      content.style.backgroundColor = "#fce4ec";
-    }
-  }
-
-  // 페이지 로드 시 환경에 맞게 조정
-  adjustContent();
-
-  // 화면 크기 변경 시 환경을 다시 확인하여 콘텐츠 조정
-  mediaQuery.addEventListener("change", adjustContent);
-});
 
 
 
-        
-    </script>
-</head>
-<body>
-    <div class="button-grid">
-    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
-    </div>
-    <div class="quiz-container" id="content">
-        
-    </div>
 
-    <script>
 
-        window.addEventListener('beforeunload', function (e) {
+
+
+  window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
     e.returnValue = ''; // 이 값은 크롬에서는 무시되지만, 경고 메시지를 표시합니다.
 });
@@ -301,6 +223,99 @@ document.addEventListener("DOMContentLoaded", function () {
                 feedback.innerText = `오답입니다. 힌트: ${questions[currentQuestionIndex].hint}`;
             }
         }
+
+
+
+
+
+
+
+
+
+
+	
+
+  // 요소가 존재하는지 확인
+  if (!content) {
+    console.error("Element with Class 'content' not found");
+    return; // 요소가 없으면 더 이상 실행하지 않고 종료
+  }
+  // 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+  // 모바일과 PC에 따라 다르게 동작하도록 함수 정의
+  function adjustContent() {
+    if (mediaQuery.matches) {
+     
+        
+        // 모바일인 경우
+     content.innerHTML = `
+
+		<h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;">
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p>
+        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+        <div class="button-grid">
+        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
+        </div>
+        <p id="feedback">정답을 입력하세요.</p>
+
+        <div class="results" id="results">
+            <!-- 결과 표시 영역 -->
+        </div>
+    
+	`;
+      content.style.backgroundColor = "#e0f7fa";
+    } else {
+
+
+        
+      // PC인 경우
+      content.innerHTML = `
+
+        
+       	<h1>영양학 퀴즈</h1>
+        <div class="progress" style="width: 100%;">
+            <div id="progressInner" class="progress-inner" style="width: 0%;"></div>
+        </div>
+        <p id="questionText">여기에 질문이 표시됩니다.</p>
+        <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+        <div class="button-grid">
+        <button id="checkButton" onclick="checkAnswer()">정답 확인</button>
+        </div>
+        <p id="feedback">정답을 입력하세요.</p>
+
+        <div class="results" id="results">
+            <!-- 결과 표시 영역 -->
+        </div>
+        
+	`;
+      content.style.backgroundColor = "#fce4ec";
+    }
+  }
+
+  // 페이지 로드 시 환경에 맞게 조정
+  adjustContent();
+
+  // 화면 크기 변경 시 환경을 다시 확인하여 콘텐츠 조정
+  mediaQuery.addEventListener("change", adjustContent);
+});
+
+
+
+        
     </script>
+</head>
+<body>
+    <div class="button-grid">
+    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
+    </div>
+    <div class="quiz-container" id="content">
+        
+    </div>
 </body>
 </html>
