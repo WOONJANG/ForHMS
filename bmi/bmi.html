@@ -73,6 +73,39 @@
     </div>
 
     <script>
+
+
+// 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
+// 모바일 환경은 768px 이하의 디바이스 너비로 간주
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+// 모바일과 PC에 따라 다르게 동작하도록 함수 정의
+function adjustContent() {
+  const content = document.getElementById("content");
+
+  if (isMobile) {
+    // 모바일인 경우
+    content.innerHTML = "모바일 환경에서 보여줄 콘텐츠";
+    content.style.backgroundColor = "#e0f7fa"; // 모바일 환경에 맞는 스타일 적용
+  } else {
+    // PC인 경우
+    content.innerHTML = "PC 환경에서 보여줄 콘텐츠";
+    content.style.backgroundColor = "#fce4ec"; // PC 환경에 맞는 스타일 적용
+  }
+}
+
+// 페이지 로드 시 환경에 맞게 조정
+adjustContent();
+
+// 화면 크기 변경 시 환경을 다시 확인하여 콘텐츠 조정
+window.addEventListener("resize", () => {
+  const currentIsMobile = window.matchMedia("(max-width: 768px)").matches;
+  if (currentIsMobile !== isMobile) {
+    adjustContent();
+  }
+});
+
+        
         function calculateBMI() {
             const height = parseFloat(document.getElementById("height").value); /* 신장 값 */
             const weight = parseFloat(document.getElementById("weight").value); /* 체중 값 */
