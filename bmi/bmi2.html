@@ -130,9 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동(M)
-    </button>
+
 
          
         
@@ -167,12 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
       // PC인 경우
-      content.innerHTML = "
+      content.innerHTML = '
 
-
-          <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동(P)
-    </button>
         
         <h1>BMI 계산기</h1> <!-- 제목 -->
         <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
@@ -198,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         
-    ";
+    ';
       content.style.backgroundColor = "#fce4ec";
     }
   }
@@ -215,7 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
         
     </script>
 <body>
-    
+            <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
  <div class="bmi-container" id="content">
  </div>
   
