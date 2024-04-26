@@ -156,7 +156,7 @@
         function getNextQuestion() {
             currentQuestionAttempts = 0;
 
-            if (usedQuestions.length >= questions.length) {
+            if (usedQuestions.length == questions.length) {
                 document.getElementById('feedback').innerText = '모든 문제를 다 풀었습니다.';
                 document.getElementById('checkButton').disabled = true;
                 document.getElementById('answerInput').disabled = true;
