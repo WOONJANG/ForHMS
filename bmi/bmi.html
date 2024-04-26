@@ -75,15 +75,6 @@
 
     <script>
 
-// DOM이 완전히 로드되었을 때 실행
-document.addEventListener("DOMContentLoaded", function () {
-  const content = document.getElementById("content");
-
-  // 요소가 존재하는지 확인
-  if (!content) {
-    console.error("Element with ID 'bmi-container' not found");
-    return; // 요소가 없으면 더 이상 실행하지 않고 종료
-  }
 
   // 모바일인지 PC인지 판단하기 위해 미디어 쿼리 설정
   const mediaQuery = window.matchMedia("(max-width: 768px)");
