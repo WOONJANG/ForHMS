@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function adjustContent() {
     if (mediaQuery.matches) {
       // 모바일인 경우
-     content.innerHTML = "
+     content.innerHTML = '
                     
         <div class="bmi-container" id="content">
         <h1>BMI 계산기</h1> <!-- 제목 -->
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
         
-    ";
+    ';
       content.style.backgroundColor = "#e0f7fa";
     } else {
 
