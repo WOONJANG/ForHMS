@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
      
         
         // 모바일인 경우
-     content.innerHTML = '
+     content.innerHTML = `
 
 
     <h1>BMI 계산기</h1> <!-- 제목 -->
@@ -150,14 +150,14 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <div id="bmiResult" class="bmi-result">결과가 여기에 표시됩니다.</div> <!-- BMI 결과 -->
-';
+`;
       content.style.backgroundColor = "#e0f7fa";
     } else {
 
 
         
       // PC인 경우
-      content.innerHTML = '
+      content.innerHTML = `
 
         
         <h1>BMI 계산기</h1> <!-- 제목 -->
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div id="bmiResult" class="bmi-result">결과가 여기에 표시됩니다.</div> <!-- BMI 결과 -->
         
-    ';
+    `;
       content.style.backgroundColor = "#fce4ec";
     }
   }
