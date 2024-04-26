@@ -148,6 +148,7 @@
             feedback.innerText = '오늘은 이미 3문제를 풀었습니다.';
             document.getElementById('answerInput').remove(); // 입력 필드 제거
             document.getElementById('checkButton').remove(); // 버튼 제거
+            results.innerHTML += `<p>${formattedDate} ${questionNumber}번 문제: 정답 (${questions[currentQuestionIndex].answer})</p>`;
         } else {
             getNextQuestion(); // 다음 문제로 이동
         }
