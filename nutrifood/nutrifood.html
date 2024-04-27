@@ -88,15 +88,27 @@ const nutrientFoods = {
     fiber: ['귀리', '현미', '아보카도', '콩', '배']
 };
 
+
+// 영양소의 번역된 이름을 매핑
+const nutrientNames = {
+    carbs: '탄수화물',
+    vitaminC: '비타민 C',
+    vitaminA: '비타민 A',
+    protein: '단백질',
+    fiber: '식이섬유'
+};
+
+	
 // 버튼 클릭 이벤트 리스너 추가
 document.querySelectorAll('.button-container button').forEach(button => {
     button.addEventListener('click', () => {
         const nutrient = button.getAttribute('data-nutrient'); // 버튼의 데이터 속성으로부터 영양소 이름 가져오기
         const foods = nutrientFoods[nutrient]; // 해당 영양소에 맞는 음식 목록 가져오기
+	const nutrientName = nutrientNames[nutrient]; // 번역된 영양소 이름 가져오기
         
         // 정보 출력 영역을 업데이트
         const infoDisplay = document.querySelector('.info-display');
-        infoDisplay.innerHTML = `<h2>${nutrient}가 풍부한 음식</h2><ul>${foods.map(food => `<li>${food}</li>`).join('')}</ul>`;
+        infoDisplay.innerHTML = `<h2>${nutrientName}가 풍부한 음식</h2><ul>${foods.map(food => `<li>${food}</li>`).join('')}</ul>`;
     });
 });
 
