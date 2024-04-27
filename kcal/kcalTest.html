@@ -217,12 +217,22 @@ let fats; /* 지방 */
                 carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
                 proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
                 fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */; 
+                //객체 생성 전에 기존 객체가 배열에 있으면 종료, 배열 초기화
+charts.forEach(obj =>{
+	obj.destroy()
+})
+charts = [];
                 
             } else {
                 dailyCalories = weight * 0.9 * 24; // 여성의 일일 권장 칼로리
                 carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
                 proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
                 fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
+                //객체 생성 전에 기존 객체가 배열에 있으면 종료, 배열 초기화
+charts.forEach(obj =>{
+	obj.destroy()
+})
+charts = [];
                                
             }
 
