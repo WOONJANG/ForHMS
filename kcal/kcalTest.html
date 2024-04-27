@@ -180,8 +180,14 @@
             let dailyCalories;
             if (gender === 'male') {
                 dailyCalories = weight * 1.0 * 24; // 남성의 일일 권장 칼로리
+                const carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
+                const proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
+                const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */; 
             } else {
                 dailyCalories = weight * 0.9 * 24; // 여성의 일일 권장 칼로리
+                const carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
+            const proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
+            const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
             }
 
             const carbs = Math.round(dailyCalories * 0.6 / 4); 
