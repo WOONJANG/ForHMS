@@ -118,6 +118,14 @@
         let fatsGauge;
 
         function initGauges() {
+
+             // 기존 차트가 존재하는지 확인하고, 존재하면 삭제
+            if (calorieGauge) calorieGauge.destroy();
+            if (carbsGauge) carbsGauge.destroy();
+            if (proteinsGauge) proteinsGauge.destroy();
+            if (fatsGauge) fatsGauge.destroy();
+
+            
             let calorieCtx = document.getElementById('calorieGauge').getContext('2d');
             let carbsCtx = document.getElementById('carbsGauge').getContext('2d');
             let proteinsCtx = document.getElementById('proteinsGauge').getContext('2d');
