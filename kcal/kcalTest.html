@@ -118,10 +118,10 @@
         let fatsGauge;
 
         function initGauges() {
-            const calorieCtx = document.getElementById('calorieGauge').getContext('2d');
-            const carbsCtx = document.getElementById('carbsGauge').getContext('2d');
-            const proteinsCtx = document.getElementById('proteinsGauge').getContext('2d');
-            const fatsCtx = document.getElementById('fatsGauge').getContext('2d');
+            let calorieCtx = document.getElementById('calorieGauge').getContext('2d');
+            let carbsCtx = document.getElementById('carbsGauge').getContext('2d');
+            let proteinsCtx = document.getElementById('proteinsGauge').getContext('2d');
+            let fatsCtx = document.getElementById('fatsGauge').getContext('2d');
 
             calorieGauge = new Chart(calorieCtx, {
                 type: 'doughnut',
