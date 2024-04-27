@@ -222,20 +222,21 @@ let carbs; /* 탄수화물 */
 let proteins; /* 단백질 */ 
 let fats; /* 지방 */ 
             if (gender === "male") {
-                dailyCalories = weight * 1.0 * 24; // 남성의 일일 권장 칼로리
+                mDailyCalories = weight * 1.0 * 24; // 남성의 일일 권장 칼로리
                 carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
                 proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
                 fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
 updateGauge(calorieGauge, mDailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
+                console.log('mDailyCalories');
 
                 
             } else {
-                dailyCalories = weight * 0.9 * 24; // 여성의 일일 권장 칼로리
+                fDailyCalories = weight * 0.9 * 24; // 여성의 일일 권장 칼로리
                 carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
                 proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
                 fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
 updateGauge(calorieGauge, fDailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
-
+console.log('fDailyCalories');
                                
             }
 
