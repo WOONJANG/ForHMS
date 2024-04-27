@@ -108,7 +108,7 @@ document.querySelectorAll('.button-container button').forEach(button => {
         
         // 정보 출력 영역을 업데이트
         const infoDisplay = document.querySelector('.info-display');
-        infoDisplay.innerHTML = `<h2>${nutrientName}가 풍부한 음식</h2><ul>${foods.map(food => `<li>${food}</li>`).join('')}</ul>`;
+        infoDisplay.innerHTML = `<h2>${nutrientName}이(가) 풍부한 음식</h2><ul>${foods.map(food => `<li>${food}</li>`).join('')}</ul>`;
     });
 });
 
