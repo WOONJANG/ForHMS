@@ -190,9 +190,7 @@
             const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
             }
 
-            const carbs = Math.round(dailyCalories * 0.6 / 4); 
-            const proteins = Math.round(dailyCalories * 0.2 / 4); 
-            const fats = Math.round(dailyCalories * 0.2 / 9); 
+            
 
             updateGauge(calorieGauge, dailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
             updateGauge(carbsGauge, carbs, 450, 'carbsLabel', carbs + ' g');
