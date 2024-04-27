@@ -212,18 +212,24 @@ let dailyCalories;
                 const carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
                 const proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
                 const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */; 
+
+                updateGauge(calorieGauge, dailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
+            updateGauge(carbsGauge, carbs, 450, 'carbsLabel', carbs + ' g');
+            updateGauge(proteinsGauge, proteins, 150, 'proteinsLabel', proteins + ' g');
+            updateGauge(fatsGauge, fats, 100, 'fatsLabel', fats + ' g');
             } else {
                 dailyCalories = weight * 0.9 * 24; // 여성의 일일 권장 칼로리
                 const carbs = Math.round(dailyCalories * 0.6 / 4); /* 탄수화물 */
             const proteins = Math.round(dailyCalories * 0.2 / 4); /* 단백질 */
             const fats = Math.round(dailyCalories * 0.2 / 9); /* 지방 */
-            }
-
-
-            updateGauge(calorieGauge, dailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
+                updateGauge(calorieGauge, dailyCalories, 3000, 'calorieLabel', dailyCalories + ' kcal');
             updateGauge(carbsGauge, carbs, 450, 'carbsLabel', carbs + ' g');
             updateGauge(proteinsGauge, proteins, 150, 'proteinsLabel', proteins + ' g');
             updateGauge(fatsGauge, fats, 100, 'fatsLabel', fats + ' g');
+            }
+
+
+            
         }
 
         function updateGauge(chart, value, max, labelId, labelText) {
