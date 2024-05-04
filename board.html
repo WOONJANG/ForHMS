@@ -11,7 +11,7 @@
 
         .board {
             display: grid;
-            grid-template-columns: repeat(5, 50px); /* 4x4 보드 */
+            grid-template-columns: repeat(5, 50px); /* 5x5 보드 */
             grid-template-rows: repeat(5, 50px);
             gap: 2px; /* 셀 간격 */
             border: 2px solid black;
@@ -45,9 +45,7 @@
 </head>
 <body>
     <h1>네모 모양 보드 게임</h1>
-    <div class="board">
-        <!-- 4x4 보드 -->
-        <div class="cell">1</div>
+<div class="cell">1</div>
         <div class="cell">2</div>
         <div class="cell">3</div>
         <div class="cell">4</div>
@@ -78,26 +76,22 @@
     <button class="button" onclick="rollDice()">주사위 굴리기</button>
 
     <script>
-        //const path = [1, 2, 3, 4, 5, 16, 6, 15, 7, 14, 8, 13, 12, 11, 10, 9]; // 이동 순서
-        //const path = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; // 이동 순서
         const path = [1, 2, 3, 4, 5, 10, 15, 20, 25, 24, 23, 22, 21, 16, 11, 6]; // 이동 순서
         let currentPosition = 0; // 플레이어의 현재 위치
 
         function rollDice() {
             const diceRoll = Math.floor(Math.random() * 6) + 1; // 주사위 1~6
-            currentPosition += diceRoll; // 이동할 위치 계산
+            const oldPosition = currentPosition; // 이전 위치 저장
 
-            if (currentPosition >= path.length) { // 한 바퀴 돌아서 시작점으로 이동
-                currentPosition = currentPosition % path.length; // 한 바퀴 돌아오는 경우
-            }
+            currentPosition = (currentPosition + diceRoll) % path.length; // 새로운 위치 계산 및 한 바퀴 확인
 
             const cells = document.getElementsByClassName("cell");
-            // 이전 위치 초기화
-            cells[path[currentPosition - diceRoll] - 1].innerHTML = path[currentPosition - diceRoll]; // 이전 위치 번호로 초기화
+            
+            // 이전 위치를 초기화
+            cells[path[oldPosition] - 1].innerHTML = path[oldPosition]; // 이전 위치를 원래 숫자로 초기화
             
             // 새로운 위치에 플레이어 표시
-            //cells[path[currentPosition] - 1].innerHTML = `<div class="player">${path[currentPosition]}</div>`;
-            cells[path[currentPosition] - 1].innerHTML = `<div class="player"></div>`;
+            cells[path[currentPosition] - 1].innerHTML = `<div class="player">${path[currentPosition]}</div>`;
 
             document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${path[currentPosition]}`;
         }
