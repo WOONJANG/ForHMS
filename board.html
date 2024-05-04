@@ -10,26 +10,41 @@
         }
 
         .board {
+            position: relative;
+            width: 300px; /* 보드의 지름 */
+            height: 300px;
+            border: 2px solid black; /* 보드 경계 */
+            border-radius: 50%; /* 원형 보드 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cells {
+            position: absolute;
+            top: 50%; /* 수직 중앙 정렬 */
+            left: 50%; /* 수평 중앙 정렬 */
+            transform: translate(-50%, -50%); /* 중앙 정렬 */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 300px; /* 보드 길이 */
-            border: 2px solid black;
-            padding: 10px;
-            margin: 20px auto;
+            flex-wrap: wrap;
+            width: 80%; /* 셀의 반지름 */
+            height: 80%; 
         }
 
         .cell {
-            width: 30px; /* 칸의 너비 */
-            height: 30px; /* 칸의 높이 */
-            border: 1px solid #ccc; /* 칸 구분 */
+            width: 30px; /* 셀 크기 */
+            height: 30px;
+            background-color: white; /* 셀 배경 */
+            border: 1px solid #ccc; /* 셀 경계 */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .player {
-            background-color: yellow; /* 플레이어의 위치 표시 */
+            background-color: yellow; /* 플레이어 표시 */
             padding: 5px;
         }
 
@@ -38,24 +53,25 @@
             border: none;
             padding: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <h1>영양학 테마 보드 게임</h1>
-    <div class="board" id="board">
-        <!-- 일직선 보드 -->
-        <div class="cell">1</div>
-        <div class="cell">2</div>
-        <div class="cell">3</div>
-        <div class="cell">4</div>
-        <div class="cell">5</div>
-        <div class="cell">6</div>
-        <div class="cell">7</div>
-        <div class="cell">8</div>
-        <div class="cell">9</div>
-        <div class="cell">10</div>
+    <div class="board">
+        <div class="cells">
+            <div class="cell">1</div>
+            <div class="cell">2</div>
+            <div class="cell">3</div>
+            <div class="cell">4</div>
+            <div class="cell">5</div>
+            <div class="cell">6</div>
+            <div class="cell">7</div>
+            <div class="cell">8</div>
+            <div class="cell">9</div>
+            <div class="cell">10</div>
+        </div>
     </div>
 
     <div id="message">주사위를 굴려보세요!</div>
@@ -68,17 +84,17 @@
             const diceRoll = Math.floor(Math.random() * 6) + 1; // 주사위 1~6
             currentPosition += diceRoll; // 이동할 위치 계산
 
-            if (currentPosition >= 10) { // 10을 넘어갈 경우 첫 칸으로 회귀
+            if (currentPosition >= 10) { // 보드의 끝에서 다시 시작
                 currentPosition = currentPosition % 10; // 한 바퀴 돌아오는 경우
             }
 
             const cells = document.getElementsByClassName("cell");
             // 이전 위치 초기화
             for (let i = 0; i < 10; i++) {
-                cells[i].innerHTML = i + 1; // 칸 번호로 초기화
+                cells[i].innerHTML = i + 1; // 기본 값으로 초기화
             }
             
-            // 새로운 위치 표시
+            // 새로운 위치에 플레이어 표시
             cells[currentPosition].innerHTML = `<div class="player">${currentPosition + 1}</div>`;
 
             document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${currentPosition + 1}`;
