@@ -97,6 +97,11 @@ function calculateBMI() {
                 	gaugeColor = "#ffa500"; /* 비만은 주황색 */
                 	gaugeValue = Math.min(((bmi - 25) / (30 - 25)) * gaugeWidth, 100); /* 게이지 값 제한 */
 			}
+		let indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
+            indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
+            indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
+            
+            document.getElementById("bmiResult").innerText = resultText; /* 결과 텍스트 설정 */
 	}else{
 		if (bmi < 18.5) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
@@ -122,7 +127,7 @@ function calculateBMI() {
 		     
 		}
             
-           const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
+           let indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
             indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
             indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
             
