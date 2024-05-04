@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- 줌 제한 -->
     <title>BMI 계산기</title>
     <style>
         body {
@@ -42,35 +43,25 @@
             margin-top: 10px; /* 결과 표시와의 간격 */
             font-weight: bold; /* 굵은 글씨 */
         }
+
+        .button-grid button {
+            background-color: #ffcc00; /* 버튼 색상 */
+            border: none; /* 테두리 제거 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            padding: 10px; /* 여백 */
+            font-size: 16px; /* 글자 크기 */
+            transition: background-color 0.3s; /* 배경 색상 애니메이션 */
+            cursor: pointer; /* 마우스 포인터 변경 */
+        }
+        
+        .button-grid button:hover {
+            background-color: #ff9900; /* 호버 효과 */
+        }
     </style>
 </head>
-<body>
-    <div class="bmi-container">
-        <h1>BMI 계산기</h1> <!-- 제목 -->
-        <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
-        
-        <!-- 입력 필드 -->
-        <label for="height">신장 (cm):</label>
-        <input type="number" id="height" placeholder="신장" /> 
-        
-        <label for="weight">체중 (kg):</label>
-        <input type="number" id="weight" placeholder="체중" />
-        
-        <label for="age">만나이:</label>
-        <input type="number" id="age" placeholder="만나이" />
-        
-        <button onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
-        
-        <!-- 게이지 표시 -->
-        <div class="gauge">
-            <div id="gaugeIndicator" class="gauge-indicator"></div>
-        </div>
+  <script>
 
-        <div id="bmiResult" class="bmi-result">결과가 여기에 표시됩니다.</div> <!-- BMI 결과 -->
-    </div>
-
-    <script>
-        function calculateBMI() {
+function calculateBMI() {
             const height = parseFloat(document.getElementById("height").value); /* 신장 값 */
             const weight = parseFloat(document.getElementById("weight").value); /* 체중 값 */
             const age = parseFloat(document.getElementById("age").value); /* 만나이 값 */
@@ -88,33 +79,26 @@
             let gaugeColor = ""; /* 게이지 색상 초기화 */
             let gaugeValue = 0; /* 게이지 값 초기화 */
             
-
-
-
-
-if(age <= 18){
-
-	if (bmi < 14.07) {
-                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#00f"; /* 저체중은 파란색 */
-                gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else if (bmi >= 14.06 && bmi < 19.8) {
-                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#0f0"; /* 정상은 초록색 */
-                gaugeValue = Math.min(((bmi - 18.5) / (23 - 18.5)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else if (bmi >= 19.8 && bmi < 22.13) {
-                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#ff0"; /* 과체중은 노란색 */
-                gaugeValue = Math.min(((bmi - 23) / (25 - 23)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } else{
-                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
-                gaugeColor = "#ffa500"; /* 비만은 주황색 */
-                gaugeValue = Math.min(((bmi - 25) / (30 - 25)) * gaugeWidth, 100); /* 게이지 값 제한 */
-            } 
-
-}else{
-
-	if (bmi < 18.5) {
+            if(age <= 18){
+			if (bmi < 14.07) {
+             	   resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+               	 	gaugeColor = "#00f"; /* 저체중은 파란색 */
+               		 gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
+            	} else if (14.07 <= bmi < 19.8) {
+               	 resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+               	 	gaugeColor = "#0f0"; /* 정상은 초록색 */
+               	 	gaugeValue = Math.min(((bmi - 18.5) / (23 - 18.5)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            	} else if (19.08 <= bmi < 22.13) {
+               	 	resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+               	 	gaugeColor = "#ff0"; /* 과체중은 노란색 */
+               		 gaugeValue = Math.min(((bmi - 23) / (25 - 23)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            	} else {
+                	resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                	gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                	gaugeValue = Math.min(((bmi - 25) / (30 - 25)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            }
+		}else{
+			if (bmi < 18.5) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
                 gaugeColor = "#00f"; /* 저체중은 파란색 */
                 gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
@@ -135,21 +119,15 @@ if(age <= 18){
                 gaugeColor = "#f00"; /* 고도비만은 빨간색 */
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
-
-
-}
-
-
-          
+		}
+            
             const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
             indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
             indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
             
             document.getElementById("bmiResult").innerText = resultText; /* 결과 텍스트 설정 */
         }
-
-
-
+      
 // DOM이 완전히 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function () {
   const content = document.getElementById("content");
@@ -241,9 +219,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
         
-
-
-	    
     </script>
-</body>
+<body>
+    <div class="button-grid">
+            <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
+        메인으로 이동
+    </button>
+    </div>
+ <div class="bmi-container" id="content">
+ </div>
+  
+</body> 
 </html>
