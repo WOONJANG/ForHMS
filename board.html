@@ -11,16 +11,17 @@
 
         .board {
             display: flex;
-            flex-wrap: wrap;
-            width: 300px; /* 보드 크기 */
-            height: 300px;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px; /* 보드 길이 */
             border: 2px solid black;
+            padding: 10px;
             margin: 20px auto;
         }
 
         .cell {
-            width: 20%;
-            height: 20%;
+            width: 30px; /* 칸의 너비 */
+            height: 30px; /* 칸의 높이 */
             border: 1px solid #ccc; /* 칸 구분 */
             display: flex;
             align-items: center;
@@ -44,7 +45,7 @@
 <body>
     <h1>영양학 테마 보드 게임</h1>
     <div class="board" id="board">
-        <!-- 5x5 보드 -->
+        <!-- 일직선 보드 -->
         <div class="cell">1</div>
         <div class="cell">2</div>
         <div class="cell">3</div>
@@ -55,21 +56,6 @@
         <div class="cell">8</div>
         <div class="cell">9</div>
         <div class="cell">10</div>
-        <div class="cell">11</div>
-        <div class="cell">12</div>
-        <div class="cell">13</div>
-        <div class="cell">14</div>
-        <div class="cell">15</div>
-        <div class="cell">16</div>
-        <div class="cell">17</div>
-        <div class="cell">18</div>
-        <div class="cell">19</div>
-        <div class="cell">20</div>
-        <div class="cell">21</div>
-        <div class="cell">22</div>
-        <div class="cell">23</div>
-        <div class="cell">24</div>
-        <div class="cell">25</div>
     </div>
 
     <div id="message">주사위를 굴려보세요!</div>
@@ -80,19 +66,22 @@
 
         function rollDice() {
             const diceRoll = Math.floor(Math.random() * 6) + 1; // 주사위 1~6
-            const newPosition = currentPosition + diceRoll; // 이동할 위치
+            currentPosition += diceRoll; // 이동할 위치 계산
 
-            if (newPosition > 24) { // 보드의 최대 값
-                document.getElementById("message").innerText = "게임 종료!";
-                return; // 게임 종료
+            if (currentPosition >= 10) { // 10을 넘어갈 경우 첫 칸으로 회귀
+                currentPosition = currentPosition % 10; // 한 바퀴 돌아오는 경우
             }
 
             const cells = document.getElementsByClassName("cell");
-            cells[currentPosition].innerHTML = currentPosition + 1; // 이전 위치의 플레이어 표시 제거
-            currentPosition = newPosition; // 새로운 위치로 이동
-            cells[currentPosition].innerHTML = `<div class="player">${currentPosition + 1}</div>`; // 플레이어 표시
+            // 이전 위치 초기화
+            for (let i = 0; i < 10; i++) {
+                cells[i].innerHTML = i + 1; // 칸 번호로 초기화
+            }
+            
+            // 새로운 위치 표시
+            cells[currentPosition].innerHTML = `<div class="player">${currentPosition + 1}</div>`;
 
-            document.getElementById("message").innerText = `주사위 굴리기 결과: ${diceRoll}, 새 위치: ${currentPosition + 1}`;
+            document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${currentPosition + 1}`;
         }
     </script>
 </body>
