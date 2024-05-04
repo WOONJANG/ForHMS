@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영양학 테마 보드 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .board {
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px; /* 보드 크기 */
+            height: 300px;
+            border: 2px solid black;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 20%;
+            height: 20%;
+            border: 1px solid #ccc; /* 칸 구분 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player {
+            background-color: yellow; /* 플레이어의 위치 표시 */
+            padding: 5px;
+        }
+
+        .button {
+            background-color: lightblue;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>영양학 테마 보드 게임</h1>
+    <div class="board" id="board">
+        <!-- 5x5 보드 -->
+        <div class="cell">1</div>
+        <div class="cell">2</div>
+        <div class="cell">3</div>
+        <div class="cell">4</div>
+        <div class="cell">5</div>
+        <div class="cell">6</div>
+        <div class="cell">7</div>
+        <div class="cell">8</div>
+        <div class="cell">9</div>
+        <div class="cell">10</div>
+        <div class="cell">11</div>
+        <div class="cell">12</div>
+        <div class="cell">13</div>
+        <div class="cell">14</div>
+        <div class="cell">15</div>
+        <div class="cell">16</div>
+        <div class="cell">17</div>
+        <div class="cell">18</div>
+        <div class="cell">19</div>
+        <div class="cell">20</div>
+        <div class="cell">21</div>
+        <div class="cell">22</div>
+        <div class="cell">23</div>
+        <div class="cell">24</div>
+        <div class="cell">25</div>
+    </div>
+
+    <div id="message">주사위를 굴려보세요!</div>
+    <button class="button" onclick="rollDice()">주사위 굴리기</button>
+
+    <script>
+        let currentPosition = 0; // 플레이어의 현재 위치
+
+        function rollDice() {
+            const diceRoll = Math.floor(Math.random() * 6) + 1; // 주사위 1~6
+            const newPosition = currentPosition + diceRoll; // 이동할 위치
+
+            if (newPosition > 24) { // 보드의 최대 값
+                document.getElementById("message").innerText = "게임 종료!";
+                return; // 게임 종료
+            }
+
+            const cells = document.getElementsByClassName("cell");
+            cells[currentPosition].innerHTML = currentPosition + 1; // 이전 위치의 플레이어 표시 제거
+            currentPosition = newPosition; // 새로운 위치로 이동
+            cells[currentPosition].innerHTML = `<div class="player">${currentPosition + 1}</div>`; // 플레이어 표시
+
+            document.getElementById("message").innerText = `주사위 굴리기 결과: ${diceRoll}, 새 위치: ${currentPosition + 1}`;
+        }
+    </script>
+</body>
+</html>
