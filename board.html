@@ -96,7 +96,8 @@
             cells[path[currentPosition - diceRoll] - 1].innerHTML = path[currentPosition - diceRoll]; // 이전 위치 번호로 초기화
             
             // 새로운 위치에 플레이어 표시
-            cells[path[currentPosition] - 1].innerHTML = `<div class="player">${path[currentPosition]}</div>`;
+            //cells[path[currentPosition] - 1].innerHTML = `<div class="player">${path[currentPosition]}</div>`;
+            cells[path[currentPosition] - 1].innerHTML = `<div class="player"></div>`;
 
             document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${path[currentPosition]}`;
         }
