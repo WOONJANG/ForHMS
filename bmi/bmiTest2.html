@@ -92,7 +92,7 @@
 
 
 
-if(age < 18){
+if(age <= 18){
 
 	if (bmi < 14.07) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
@@ -140,14 +140,7 @@ if(age < 18){
 }
 
 
-
-
-
-
-
-
-            
-            
+          
             const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
             indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
             indicator.style.backgroundColor = gaugeColor; /* 게이지 색상 설정 */
