@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>영양학 테마 보드 게임</title>
+    <title>네모 모양 보드 게임</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,33 +10,19 @@
         }
 
         .board {
-            position: relative;
-            width: 300px; /* 보드의 지름 */
-            height: 300px;
-            border: 2px solid black; /* 보드 경계 */
-            border-radius: 50%; /* 원형 보드 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cells {
-            position: absolute;
-            top: 50%; /* 수직 중앙 정렬 */
-            left: 50%; /* 수평 중앙 정렬 */
-            transform: translate(-50%, -50%); /* 중앙 정렬 */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 80%; /* 셀의 반지름 */
-            height: 80%; 
+            display: grid;
+            grid-template-columns: repeat(4, 50px); /* 4x4 보드 */
+            grid-template-rows: repeat(4, 50px);
+            gap: 2px; /* 셀 간격 */
+            border: 2px solid black;
+            padding: 10px;
+            margin: 20px auto;
         }
 
         .cell {
-            width: 30px; /* 셀 크기 */
-            height: 30px;
-            background-color: white; /* 셀 배경 */
+            width: 50px;
+            height: 50px;
+            background-color: white;
             border: 1px solid #ccc; /* 셀 경계 */
             display: flex;
             align-items: center;
@@ -58,46 +44,54 @@
     </style>
 </head>
 <body>
-    <h1>영양학 테마 보드 게임</h1>
+    <h1>네모 모양 보드 게임</h1>
     <div class="board">
-        <div class="cells">
-            <div class="cell">1</div>
-            <div class="cell">2</div>
-            <div class="cell">3</div>
-            <div class="cell">4</div>
-            <div class="cell">5</div>
-            <div class="cell">6</div>
-            <div class="cell">7</div>
-            <div class="cell">8</div>
-            <div class="cell">9</div>
-            <div class="cell">10</div>
-        </div>
+        <!-- 4x4 보드 -->
+        <div class="cell">1</div>
+        <div class="cell">2</div>
+        <div class="cell">3</div>
+        <div class="cell">4</div>
+        <div class="cell">16</div> <!-- 시계 방향 -->
+        <div class="cell"></div> <!-- 비어 있는 칸 -->
+        <div class="cell"></div> <!-- 비어 있는 칸 -->
+        <div class="cell">5</div>
+        <div class="cell">15</div>
+        <div class="cell"></div> <!-- 비어 있는 칸 -->
+        <div class="cell"></div> <!-- 비어 있는 칸 -->
+        <div class="cell">6</div>
+        <div class="cell">14</div> <!-- 시계 방향 -->
+        <div class="cell">13</div>
+        <div class="cell">12</div>
+        <div class="cell">7</div>
+        <div class="cell">11</div>
+        <div class="cell">10</div>
+        <div class="cell">9</div>
+        <div class="cell">8</div> <!-- 네모 모양으로 이동 -->
     </div>
 
     <div id="message">주사위를 굴려보세요!</div>
     <button class="button" onclick="rollDice()">주사위 굴리기</button>
 
     <script>
+        const path = [1, 2, 3, 4, 16, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; // 이동 순서
         let currentPosition = 0; // 플레이어의 현재 위치
 
         function rollDice() {
             const diceRoll = Math.floor(Math.random() * 6) + 1; // 주사위 1~6
             currentPosition += diceRoll; // 이동할 위치 계산
 
-            if (currentPosition >= 10) { // 보드의 끝에서 다시 시작
-                currentPosition = currentPosition % 10; // 한 바퀴 돌아오는 경우
+            if (currentPosition >= path.length) { // 한 바퀴 돌아서 시작점으로 이동
+                currentPosition = currentPosition % path.length; // 한 바퀴 돌아오는 경우
             }
 
             const cells = document.getElementsByClassName("cell");
             // 이전 위치 초기화
-            for (let i = 0; i < 10; i++) {
-                cells[i].innerHTML = i + 1; // 기본 값으로 초기화
-            }
+            cells[path[currentPosition - diceRoll] - 1].innerHTML = path[currentPosition - diceRoll]; // 이전 위치 번호로 초기화
             
             // 새로운 위치에 플레이어 표시
-            cells[currentPosition].innerHTML = `<div class="player">${currentPosition + 1}</div>`;
+            cells[path[currentPosition] - 1].innerHTML = `<div class="player">${path[currentPosition]}</div>`;
 
-            document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${currentPosition + 1}`;
+            document.getElementById("message").innerText = `주사위 결과: ${diceRoll}, 새 위치: ${path[currentPosition]}`;
         }
     </script>
 </body>
