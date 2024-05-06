@@ -51,19 +51,17 @@
     background-color: #ff9900; /* 호버 효과 */
 }
     </style>
-<script>
-    function navigateToMainPage() {
-        window.top.location.href = 'https://woonjang.github.io/ForHMS/'; // 부모 페이지를 이동
-    }
+    <script>
+        function navigateToMainPage() {
+            window.location.href = 'https://woonjang.github.io/ForHMS/'; // 부모 페이지를 이동
+        }
     </script>
-<head>
-    <title>홈 버튼</title>
 </head>
 <body>
     <div class="button-grid">
-    <button onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
+        <button onclick="navigateToMainPage()">
+            메인으로 이동
+        </button>
     </div>
 </body>
 </html>
