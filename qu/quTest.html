@@ -156,7 +156,7 @@ window.addEventListener('beforeunload', function (e) {
             }
         ];
 
-        const maxQuestionsPerDay = 3; // 하루 최대 문제 수 제한
+        const maxQuestionsPerDay = 5; // 하루 최대 문제 수 제한
         const usedQuestions = []; // 중복 방지를 위한 기록
         let correctAnswers = 0;
         let currentQuestionAttempts = 0;
@@ -172,10 +172,10 @@ window.addEventListener('beforeunload', function (e) {
         const quizAttempts = getCookie('quizAttempts') || '{}'; // 쿠키에서 시도 횟수 가져오기
         const parsedAttempts = JSON.parse(quizAttempts);
 
-        // 오늘 이미 3문제 풀었는지 확인
+        // 오늘 이미 5문제 풀었는지 확인
         if (parsedAttempts[today] && parsedAttempts[today] >= maxQuestionsPerDay) {
             const feedback = document.getElementById('feedback');
-            feedback.innerText = '오늘은 이미 3문제를 풀었습니다.';
+            feedback.innerText = '오늘은 이미 5문제를 풀었습니다.';
             document.getElementById('answerInput').remove(); // 입력 필드 제거
             document.getElementById('checkButton').remove(); // 버튼 제거
             results.innerHTML += `<p>${formattedDate} ${questionNumber}번 문제: 정답 (${questions[currentQuestionIndex].answer})</p>`;
