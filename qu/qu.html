@@ -361,10 +361,10 @@ hint : '유부00'
         const quizAttempts = getCookie('quizAttempts') || '{}'; // 쿠키에서 시도 횟수 가져오기
         const parsedAttempts = JSON.parse(quizAttempts);
 
-        // 오늘 이미 5문제 풀었는지 확인
+        // 오늘 이미 10문제 풀었는지 확인
         if (parsedAttempts[today] && parsedAttempts[today] >= maxQuestionsPerDay) {
             const feedback = document.getElementById('feedback');
-            feedback.innerText = '오늘은 이미 5문제를 풀었습니다.';
+            feedback.innerText = '오늘은 이미 10문제를 풀었습니다.';
             document.getElementById('answerInput').remove(); // 입력 필드 제거
             document.getElementById('checkButton').remove(); // 버튼 제거
             results.innerHTML += `<p>${formattedDate} ${questionNumber}번 문제: 정답 (${questions[currentQuestionIndex].answer})</p>`;
