@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>식습관 자가 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center; /* 중앙 정렬 */
+            background-color: #f0f8ff; /* 파스텔 블루 배경 */
+        }
+
+        h1 {
+            color: #4b4b4b; /* 부드러운 회색 텍스트 */
+            margin-bottom: 20px;
+        }
+
+        .test-button {
+            padding: 10px 20px;
+            background-color: #8fd3f4; /* 파스텔 블루 */
+            color: white;
+            border: none;
+            border-radius: 10px; /* 둥근 모서리 */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .test-button:hover {
+            background-color: #6cb2d9; /* 마우스 오버 시 색상 변화 */
+        }
+
+        .test-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result {
+		 width: 600px;
+		 margin : auto;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none; /* 결과 창 숨김 */
+            padding: 20px; /* 내부 여백 */
+            border-radius: 15px; /* 둥근 테두리 */
+            border: 2px solid #b0d9e4; /* 파스텔 블루 테두리 */
+            background-color: #fffbea; /* 노란 파스텔 배경 */
+            color: #4b4b4b; /* 텍스트 색상 */
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto; /* 모바일에서도 표가 잘 보이도록 스크롤 가능 */
+        }
+
+        table {
+            width: 100%; /* 모바일에서 너비 조정 */
+            border-collapse: collapse;
+            border-radius: 10px; /* 둥근 모서리 */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 10px; /* 셀 내부의 여백 */
+            border: 1px solid #e1e1e1; /* 부드러운 회색 경계 */
+            text-align: center;
+        }
+
+        th {
+            background-color: #d4e2fc; /* 파스텔 블루 헤더 */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>식습관 자가 테스트</h1>
+
+<div id="questions">
+<table style="text-align: center; border: solid 1px black;">
+
+<tr>
+<td>번호</td>
+<td>질문</td>
+<td>그렇다</td>
+<td>그렇지않다</td>
+</tr>
+
+
+<div class="question" id="q1">
+<tr>
+<td>1</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q1_o')"><input type="radio" id="q1_o" name="q1" value="0" onclick="updateScore('q1', 0)"></td>
+<td onclick="selectRadio('q1_x')"><input type="radio" id="q1_x" name="q1" value="10" onclick="updateScore('q1', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q2">
+<tr>
+<td>2</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q2_o')"><input type="radio" id="q2_o" name="q2" value="0" onclick="updateScore('q2', 0)"> </td>
+<td onclick="selectRadio('q2_x')"><input type="radio" id="q2_x" name="q2" value="10" onclick="updateScore('q2', 10)"> </td>
+</tr>
+</div>
+
+<div class="question" id="q3">
+<tr>
+<td>3</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q3_o')"><input type="radio" id="q3_o" name="q3" value="0" onclick="updateScore('q3', 0)"> </td>
+<td onclick="selectRadio('q3_x')"><input type="radio" id="q3_x" name="q3" value="10" onclick="updateScore('q3', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q4">
+<tr>
+<td>4</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q4_o')"><input type="radio" id="q4_o" name="q4" value="0" onclick="updateScore('q4', 0)"> </td>
+<td onclick="selectRadio('q4_x')"><input type="radio" id="q4_x" name="q4" value="10" onclick="updateScore('q4', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q5">
+<tr>
+<td>5</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q5_o')"><input type="radio" id="q5_o" name="q5" value="0" onclick="updateScore('q5', 0)"></td>
+<td onclick="selectRadio('q5_x')"><input type="radio" id="q5_x" name="q5" value="10" onclick="updateScore('q5', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q6">
+<tr>
+<td>6</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q6_o')"><input type="radio" id="q6_o" name="q6" value="0" onclick="updateScore('q6', 0)"></td>
+<td onclick="selectRadio('q6_x')"><input type="radio" id="q6_x" name="q6" value="10" onclick="updateScore('q6', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q7">
+<tr>
+<td>7</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q7_o')"><input type="radio" id="q7_o" name="q7" value="0" onclick="updateScore('q7', 0)"></td>
+<td onclick="selectRadio('q7_x')"><input type="radio" id="q7_x" name="q7" value="10" onclick="updateScore('q7', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q8">
+<tr>
+<td>8</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q8_o')"><input type="radio" id="q8_o" name="q8" value="0" onclick="updateScore('q8', 0)"></td>
+<td onclick="selectRadio('q8_x')"><input type="radio" id="q8_x" name="q8" value="10" onclick="updateScore('q8', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q9">
+<tr>
+<td>9</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q9_o')"><input type="radio" id="q9_o" name="q9" value="0" onclick="updateScore('q9', 0)"></td>
+<td onclick="selectRadio('q9_x')"><input type="radio" id="q9_x" name="q9" value="10" onclick="updateScore('q9', 10)"></td>
+</tr>
+</div>
+
+<div class="question" id="q10">
+<tr>
+<td>10</td>
+<td><p>하루에 과일을 2개 이상 먹나요?</p></td>
+<td onclick="selectRadio('q10_o')"><input type="radio" id="q10_o" name="q10" value="0" onclick="updateScore('q10', 0)"></td>
+<td onclick="selectRadio('q10_x')"><input type="radio" id="q10_x" name="q10" value="10" onclick="updateScore('q10', 10)"></td>
+</tr>
+</div>
+
+
+</table>
+
+</div>
+
+    <br><br><button id="submit" class="test-button" disabled onclick="submitTest()">제출</button>
+    
+    <br><br><br><div class="result" id="result">
+        <!-- 결과가 표시될 영역 -->
+    </div>
+    
+    <script>
+function selectRadio(id) {
+            const radio = document.getElementById(id);
+            radio.checked = true; // 해당 라디오 버튼 선택
+            updateScore();
+        }
+        // 라디오 버튼 선택 여부에 따라 제출 버튼 활성화/비활성화
+        function updateScore() {
+            const radioButtons = document.querySelectorAll("input[type='radio']");
+            const allAnswered = Array.from(radioButtons).filter((radio) => radio.checked).length / 2;
+            const submitButton = document.getElementById("submit");
+
+            if (allAnswered < 10) { 
+                submitButton.disabled = false; 
+            } else {
+                submitButton.disabled = true; 
+            }
+        }
+
+        function submitTest() {
+            const radioButtons = document.querySelectorAll("input[type='radio']");
+            const answeredQuestions = new Set();
+
+            let totalScore = 0;
+
+            // 점수 계산
+            radioButtons.forEach((radio) => {
+                if (radio.checked) {
+                    answeredQuestions.add(radio.name); // 각 질문이 답변되었는지 확인
+                    if (parseInt(radio.value, 10) === 10) { 
+                        totalScore += 10; // X를 선택한 경우 10점 추가
+                    }
+
+console.log("누적" + totalScore);
+                }
+            });
+
+            if (answeredQuestions.size < 10) {
+                alert("모든 질문에 답변해 주세요.");
+                return;
+            }
+
+            const resultDiv = document.getElementById("result");
+		 let questions = document.getElementById("questions");
+		 questions.style.display = "none";
+		 let submit = document.getElementById("submit");	
+		 submit.style.display = "none";
+            resultDiv.style.display = "block";
+            resultDiv.textContent = "집계 중...";
+
+            setTimeout(() => {
+                let resultText = "";
+
+                if (totalScore <= 30) {
+                    resultText = "건강한 식습관을 갖고 있습니다. 계속 유지하세요!";
+                } else if (totalScore <= 60) {
+                    resultText = "식습관이 양호합니다. 더 좋은 습관을 위해 노력하세요.";
+                } else if (totalScore <= 90) {
+                    resultText= "식습관에 개선이 필요합니다. 주의하세요!";
+                } else {
+                    resultText= "식습관이 좋지 않습니다. 건강을 위해 개선이 필요합니다!";
+                }
+
+                resultDiv.textContent = resultText; 
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
