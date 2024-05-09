@@ -262,13 +262,11 @@ console.log("누적" + totalScore);
                 let resultText = "";
 
                 if (totalScore <= 30) {
-                    resultText = "건강한 식습관을 갖고 있습니다. 계속 유지하세요!";
+                    resultText = "건강한 식습관을 갖고 있습니다~";
                 } else if (totalScore <= 60) {
-                    resultText = "식습관이 양호합니다. 더 좋은 습관을 위해 노력하세요.";
-                } else if (totalScore <= 90) {
-                    resultText= "식습관에 개선이 필요합니다. 주의하세요!";
+                    resultText = "식습관이 양호합니다~";
                 } else {
-                    resultText= "식습관이 좋지 않습니다. 건강을 위해 개선이 필요합니다!";
+                    resultText= "식습관에 개선이 필요합니다. 주의하세요!";
                 }
 
                 resultDiv.textContent = resultText; 
