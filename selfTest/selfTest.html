@@ -266,11 +266,11 @@ console.log("누적" + totalScore);
 		const titleText = document.getElementById("titleText");
 		    titleText.innerHTML = "<h1> 식습관 자가 진단 결과 </h1>";
                 if (totalScore <= 30) {
-                    resultText = "건강한 식습관을 갖고 있습니다~";
+                    resultText = "훌륭한 식습관을 가지고 있습니다. 지금처럼 올바른 식습관을 유지하기 위해 노력해 봅시다.";
                 } else if (totalScore <= 60) {
-                    resultText = "식습관이 양호합니다~";
+                    resultText = "양호한 식습관을 가지고 있습니다. 올바른 식습관을 형성하기 위해 조금 더 노력해 봅시다.";
                 } else {
-                    resultText= "식습관에 개선이 필요합니다. 주의하세요!";
+                    resultText= "식습관 개선이 필요합니다. 일상에서 작은 것부터 영양행동을 실천하기 위해 노력해 봅시다.";
                 }
 
                 resultDiv.textContent = resultText; 
