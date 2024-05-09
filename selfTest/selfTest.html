@@ -77,7 +77,7 @@
     </style>
 </head>
 <body>
-    <h1> &lt;식습관 자가 진단&gt; </h1>
+    <h1 id="titleText"> &lt;식습관 자가 진단&gt; </h1>
 <br>
 <div id="questions">
 <table style="text-align: center; border: solid 1px black;">
@@ -260,7 +260,8 @@ console.log("누적" + totalScore);
 
             setTimeout(() => {
                 let resultText = "";
-
+		const titleText = document.getElementById("titleText");
+		    titleText.innerHTML = "<h1> 식습관 자가 진단 결과 </h1>";
                 if (totalScore <= 30) {
                     resultText = "건강한 식습관을 갖고 있습니다~";
                 } else if (totalScore <= 60) {
