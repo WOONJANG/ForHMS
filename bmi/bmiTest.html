@@ -82,8 +82,8 @@ function calculateBMI() {
             let gaugeColor = ""; /* 게이지 색상 초기화 */
             let gaugeValue = 0; /* 게이지 값 초기화 */
            
-            var male = document.getElementById("M").value;
-var female = document.getElementById("F").value;
+            var male = document.getElementById("M").checked;
+var female = document.getElementById("F").checked;
 if(age < 2){
 	document.getElementById("bmiResult").innerText = "2세 이상 부터 계산이 가능합니다."; /* 잘못된 입력 처리 */
                 return;
