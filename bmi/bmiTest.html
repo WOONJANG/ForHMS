@@ -71,7 +71,7 @@ function calculateBMI() {
             const gender = document.querySelector('input[name="gender"]:checked').value;
 	
             if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0 || !gender) {
-                document.getElementById("bmiResult").innerText = "올바른 신장과 체중, 성별을 입력하세요."; /* 잘못된 입력 처리 */
+                document.getElementById("bmiResult").innerText = "올바른 신장과 체중, 나이 및 성별을 입력하세요."; /* 잘못된 입력 처리 */
                 return;
             }
             
