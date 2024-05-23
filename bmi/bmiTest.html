@@ -82,26 +82,836 @@ function calculateBMI() {
             let gaugeColor = ""; /* 게이지 색상 초기화 */
             let gaugeValue = 0; /* 게이지 값 초기화 */
            
-            if(age <= 18){
-			if (bmi < 14.07) {
+            var male = document.getElementById("M").value;
+var female = document.getElementById("F").value;
+
+//2세미만
+if(age < 2){
+		document.getElementById("bmiResult").innerText = "2세 이상 부터 계산이 가능합니다."; /* 잘못된 입력 처리 */
+        	return;
+
+//2세	    
+}else if(age == 2){
+//2세 남자
+
+if(male == "M"){
+
+
+
+if (bmi < 14.33) {
 			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
 			    gaugeColor = "#00f"; // 파란색
- 			   gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); // 게이지 값 제한
-			} else if (bmi >= 14.07 && bmi < 19.8) {
+ 			   gaugeValue = Math.min((bmi / 14.33) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 14.33 && bmi < 19.16) {
   			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
  			   gaugeColor = "#0f0"; // 초록색
- 			   gaugeValue = Math.min(((bmi - 14.07) / (19.8 - 14.07)) * gaugeWidth, 100);
-			} else if (bmi >= 19.8 && bmi < 22.13) {
-			    resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
- 			   gaugeColor = "#ff0"; // 노란색
- 			   gaugeValue = Math.min(((bmi - 19.8) / (22.13 - 19.8)) * gaugeWidth, 100);
+ 			   gaugeValue = Math.min(((bmi - 14.33) / (19.16 - 14.33)) * gaugeWidth, 100);
 			} else {
- 			   resultText = `비만 - BMI: ${bmi.toFixed(2)}`;
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
  			   gaugeColor = "#ffa500"; // 주황색
  			   gaugeValue = 100; // 최대치 제한
 			}
-		}else{
-			if (bmi < 18.5) {
+
+//2세 여자
+}else{
+
+if (bmi < 14.12) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 14.12) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 14.12 && bmi < 18.94) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 14.12) / (18.94 - 14.12)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+
+
+// 3세
+}else if (age == 3){
+
+// 남자
+if(male == "M"){
+
+if (bmi < 14.15) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 14.15) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 14.15 && bmi < 18.40) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 14.15) / (18.40 - 14.15)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+
+// 여자
+}else{
+if (bmi < 13.92) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 13.92) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 13.92 && bmi < 18.19) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 13.92) / (18.19 - 13.92)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+}
+
+
+
+// 4세
+}else if (age == 4){
+
+// 남자
+if(male == "M"){
+
+
+if (bmi < 14.01) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 14.01) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 14.01 && bmi < 18.34) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 14.01) / (18.34 - 14.01)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+// 여자
+}else{
+if (bmi < 13.76) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 13.76) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 13.76 && bmi < 18.03) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 13.76) / (18.03 - 13.76)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+}
+
+
+
+
+
+
+
+// 5세
+}else if (age == 5){
+
+
+// 남자
+if(male == "M"){
+if (bmi < 13.91) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 13.91) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 13.91 && bmi < 18.78) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 13.91) / (18.78 - 13.91)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+// 여자
+}else{
+if (bmi < 13.64) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 13.64) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 13.64 && bmi < 18.33) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 13.64) / (18.33 - 13.64)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+
+}
+}
+
+
+
+
+
+
+// 6세
+}else if (age == 6){
+
+// 남자
+if(male == "M"){
+if (bmi < 13.87) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 13.87) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 13.87 && bmi < 17.86) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 13.87) / (17.86 - 13.87)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.86 && bmi < 19.59) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 17.86) / (19.59 - 17.86)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+
+}
+// 여자
+}else{
+		if (bmi < 13.59) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 13.59) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 13.59 && bmi < 17.48) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 13.59) / (17.48 - 13.59)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.48 && bmi < 18.96) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 17.48) / (18.96 - 17.48)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+
+// 7세
+}else if (age == 7){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 13.93) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 13.93) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 13.93 && bmi < 18.86) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 13.93) / (18.86 - 13.93)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 18.86 && bmi < 20.93) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 18.86) / (20.93 - 18.86)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 13.63) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 13.63) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 13.63 && bmi < 18.27) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 13.63) / (18.27 - 13.63)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 18.27 && bmi < 20.05) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 18.27) / (20.05 - 18.27)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 8세
+}else if (age == 8){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 14.06) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.06) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.06 && bmi < 19.80) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.06) / (19.80 - 14.06)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 19.80 && bmi < 22.13) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 19.80) / (22.13 - 19.80)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 13.77) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 13.77) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 13.77 && bmi < 19.05) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 13.77) / (19.05 - 13.77)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 19.05 && bmi < 21.05) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 19.05) / (21.05 - 19.05)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 9세
+}else if (age == 9){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 14.27) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.27) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.27 && bmi < 20.76) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.27) / (20.76 - 14.27)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 20.76 && bmi < 23.34) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 20.76) / (23.34 - 20.76)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 14.01) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.01) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.27 && bmi < 19.88) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.01) / (19.88 - 14.01)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 19.88 && bmi < 22.09) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 19.88) / (22.09 - 19.88)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 10세
+}else if (age == 10){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 14.57) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.57) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.57 && bmi < 21.71) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.57) / (21.71 - 14.57)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 21.71 && bmi < 24.48) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 21.71) / (24.48 - 21.71)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+if(male == "M"){
+		if (bmi < 14.33) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.33) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.33 && bmi < 21.71) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.33) / (20.71 - 14.33)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 20.71 && bmi < 23.08) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 20.71) / (23.08 - 20.71)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+
+}
+
+
+
+
+
+
+// 11세
+}else if (age == 11){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 14.93) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.93) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.93 && bmi < 22.57) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.93) / (20.71 - 14.93)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 22.57 && bmi < 25.50) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 22.57) / (25.50 - 22.57)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+
+// 여자
+}else{
+		if (bmi < 14.73) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 14.73) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 14.73 && bmi < 21.51) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 14.73) / (21.51 - 14.73)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 21.51 && bmi < 23.99) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.99) / (25.50 - 23.99)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 12세
+}else if (age == 12){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 15.35) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 15.35) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 15.35 && bmi < 23.32) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 15.35) / (23.32 - 15.35)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.32 && bmi < 26.35) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.32) / (26.35 - 23.32)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 15.20) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 15.20) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 15.20 && bmi < 22.22) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 15.20) / (22.22 - 15.20)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 22.22 && bmi < 24.77) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 22.22) / (24.77 - 22.22)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 13세
+}else if (age == 13){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 15.82) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 15.82) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 15.82 && bmi < 23.93) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 15.82) / (23.93 - 15.82)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.93 && bmi < 27.02) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.93) / (27.02 - 23.93)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 15.82) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 15.71) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 15.71 && bmi < 22.83) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 15.71) / (22.83 - 15.71)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 22.83 && bmi < 25.38) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 22.83) / (25.38 - 22.83)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 14세
+}else if (age == 14){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 16.32) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 16.32) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 16.32 && bmi < 24.40) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 16.32) / (24.40 - 16.32)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 24.40 && bmi < 27.48) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 24.40) / (27.48 - 24.40)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 16.25) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 16.25) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 16.25 && bmi < 23.31) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 16.25) / (23.31 - 16.25)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.31 && bmi < 25.83) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.31) / (25.83 - 23.31)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 15세
+}else if (age == 15){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 16.83) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 16.83) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 16.83 && bmi < 24.74) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 16.83) / (24.74 - 16.83)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 24.74 && bmi < 27.77) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 24.74) / (27.77 - 24.74)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 16.78) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 16.78) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 16.78 && bmi < 23.67) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 16.78) / (23.67 - 16.78)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.67 && bmi < 26.11) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.67) / (26.11 - 23.67)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 16세
+}else if (age == 16){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 17.33) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 17.33) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.33 && bmi < 24.95) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 17.33) / (24.95 - 17.33)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 24.95 && bmi < 27.89) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 24.95) / (27.89 - 24.95)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 17.27) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 17.27) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.27 && bmi < 23.89) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 17.27) / (23.89 - 17.27)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.89 && bmi < 26.24) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.67) / (26.24 - 23.67)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 17세
+}else if (age == 17){
+
+
+// 남자
+if(male == "M"){
+		if (bmi < 17.80) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 17.80) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.80 && bmi < 25.08) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 17.80) / (25.08 - 17.80)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 25.08 && bmi < 27.89) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 25.08) / (27.89 - 25.08)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 17.68) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 17.68) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.68 && bmi < 23.99) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 17.68) / (23.99 - 17.68)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.99 && bmi < 26.24) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.99) / (26.24 - 23.99)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+// 18세
+}else if (age == 18){
+
+// 남자
+if(male == "M"){
+		if (bmi < 18.20) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 18.20) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 18.20 && bmi < 25.18) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 18.20) / (25.18 - 18.20)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 25.18 && bmi < 27.85) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 25.18) / (27.85 - 25.18)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+// 여자
+}else{
+		if (bmi < 17.96) {
+                resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#00f"; /* 저체중은 파란색 */
+                gaugeValue = Math.min((bmi / 17.96) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 17.96 && bmi < 23.98) {
+                resultText = `정상 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#0f0"; /* 정상은 초록색 */
+                gaugeValue = Math.min(((bmi - 17.96) / (23.98 - 17.96)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else if (bmi >= 23.98 && bmi < 26.15) {
+                resultText = `과체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ff0"; /* 과체중은 노란색 */
+                gaugeValue = Math.min(((bmi - 23.98) / (26.15 - 23.98)) * gaugeWidth, 100); /* 게이지 값 제한 */
+            } else{
+                resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
+                gaugeColor = "#ffa500"; /* 비만은 주황색 */
+                gaugeValue = Math.min(100, 100); /* 최대치 제한 */
+            }
+}
+
+
+
+
+
+
+
+}
+else{
+		if (bmi < 18.5) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
                 gaugeColor = "#00f"; /* 저체중은 파란색 */
                 gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
@@ -123,6 +933,8 @@ function calculateBMI() {
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
 		}
+
+
             
             const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
             indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
