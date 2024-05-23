@@ -72,10 +72,7 @@ function calculateBMI() {
             if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
                 document.getElementById("bmiResult").innerText = "올바른 신장과 체중을 입력하세요."; /* 잘못된 입력 처리 */
                 return;
-            }else if(age < 2){
-		ocument.getElementById("bmiResult").innerText = "2세 이상 부터 계산이 가능합니다."; /* 잘못된 입력 처리 */
-        	return;
-	    }
+            }
             
             const heightInMeters = height / 100; /* 신장을 미터 단위로 변환 */
             const bmi = weight / (heightInMeters * heightInMeters); /* BMI 계산 */
@@ -84,7 +81,7 @@ function calculateBMI() {
             let resultText = ""; /* 결과 텍스트 초기화 */
             let gaugeColor = ""; /* 게이지 색상 초기화 */
             let gaugeValue = 0; /* 게이지 값 초기화 */
-            
+           
             if(age <= 18){
 			if (bmi < 14.07) {
 			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
@@ -168,8 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <label for="age">만나이:&nbsp;&nbsp;&nbsp;</label>
         <input type="number" id="age" placeholder="만나이" />
 	<br>
-        <input type="radio" name="gender" value="M">남자
-        <input type="radio" name="gender" value="F">여자
+        <input type="radio" id="M" name="gender" value="M">남자
+        <input type="radio" id="F" name="gender" value="F">여자
         <br><br>
         <div class="button-grid">
         <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
@@ -203,8 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <label for="age">만나이:&nbsp;&nbsp;&nbsp;</label>
         <input type="number" id="age" placeholder="만나이" />
 	<br>
-        <input type="radio" name="gender" value="M">남자
-        <input type="radio" name="gender" value="F">여자
+        <input type="radio" id="M" name="gender" value="M">남자
+        <input type="radio" id="F" name="gender" value="F">여자
         <br><br>
         <div class="button-grid">
         <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
