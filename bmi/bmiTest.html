@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- 줌 제한 -->
     <title>BMI 계산기</title>
     <style>
         body {
@@ -57,6 +57,9 @@
         .button-grid button:hover {
             background-color: #ff9900; /* 호버 효과 */
         }
+	    	footer{
+		margin-bottom: 10px;
+	}
     </style>
 </head>
   <script>
@@ -79,7 +82,26 @@ function calculateBMI() {
             let gaugeColor = ""; /* 게이지 색상 초기화 */
             let gaugeValue = 0; /* 게이지 값 초기화 */
             
-            if (bmi < 18.5) {
+            if(age <= 18){
+			if (bmi < 14.07) {
+			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
+			    gaugeColor = "#00f"; // 파란색
+ 			   gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); // 게이지 값 제한
+			} else if (bmi >= 14.07 && bmi < 19.8) {
+  			  resultText = `정상 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#0f0"; // 초록색
+ 			   gaugeValue = Math.min(((bmi - 14.07) / (19.8 - 14.07)) * gaugeWidth, 100);
+			} else if (bmi >= 19.8 && bmi < 22.13) {
+			    resultText = `과체중 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ff0"; // 노란색
+ 			   gaugeValue = Math.min(((bmi - 19.8) / (22.13 - 19.8)) * gaugeWidth, 100);
+			} else {
+ 			   resultText = `비만 - BMI: ${bmi.toFixed(2)}`;
+ 			   gaugeColor = "#ffa500"; // 주황색
+ 			   gaugeValue = 100; // 최대치 제한
+			}
+		}else{
+			if (bmi < 18.5) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
                 gaugeColor = "#00f"; /* 저체중은 파란색 */
                 gaugeValue = Math.min((bmi / 18.5) * gaugeWidth, 100); /* 게이지 값 제한 */
@@ -100,6 +122,7 @@ function calculateBMI() {
                 gaugeColor = "#f00"; /* 고도비만은 빨간색 */
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
+		}
             
             const indicator = document.getElementById("gaugeIndicator"); /* 게이지 인디케이터 */
             indicator.style.width = `${gaugeValue}%`; /* 게이지 너비 조정 */
@@ -129,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
      content.innerHTML = `
 
 
-    <h1>BMI 계산기</h1> <!-- 제목 -->
+    <h1>BMI 계산기(Mobile)</h1> <!-- 제목 -->
         <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
         
         <!-- 입력 필드 -->
@@ -139,12 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
         <label for="weight">체중 (kg):</label>
         <input type="number" id="weight" placeholder="체중" />
         <br>
-        <label for="age">만나이:</label>
+        <label for="age">만나이:&nbsp;&nbsp;&nbsp;</label>
         <input type="number" id="age" placeholder="만나이" />
-        <br>
+        <input type="radio" name="gender" value="M">남자
+        <input type="radio" name="gender" value="F">여자
+        <br><br>
         <div class="button-grid">
         <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
-        </div>
+        </div><br>
         <!-- 게이지 표시 -->
         <div class="gauge">
             <div id="gaugeIndicator" class="gauge-indicator"></div>
@@ -161,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
       content.innerHTML = `
 
         
-        <h1>BMI 계산기</h1> <!-- 제목 -->
+        <h1>BMI 계산기(PC)</h1> <!-- 제목 -->
         <p>신장과 체중을 입력하여 BMI 지수를 계산합니다.</p> <!-- 설명 -->
         
         <!-- 입력 필드 -->
@@ -171,12 +196,14 @@ document.addEventListener("DOMContentLoaded", function () {
         <label for="weight">체중 (kg):</label>
         <input type="number" id="weight" placeholder="체중" />
         <br>
-        <label for="age">만나이:</label>
+        <label for="age">만나이:&nbsp;&nbsp;&nbsp;</label>
         <input type="number" id="age" placeholder="만나이" />
-        <br>
+        <input type="radio" name="gender" value="M">남자
+        <input type="radio" name="gender" value="F">여자
+        <br><br>
         <div class="button-grid">
         <button class="button-grid" onclick="calculateBMI()">계산하기</button> <!-- 계산 버튼 -->
-        </div>
+        </div><br>
         <!-- 게이지 표시 -->
         <div class="gauge">
             <div id="gaugeIndicator" class="gauge-indicator"></div>
@@ -201,13 +228,12 @@ document.addEventListener("DOMContentLoaded", function () {
         
     </script>
 <body>
-    <div class="button-grid">
-            <button class="button-grid" onclick="window.location.href='https://woonjang.github.io/ForHMS/'">
-        메인으로 이동
-    </button>
-    </div>
+    <iframe src="https://woonjang.github.io/ForHMS/homeButton.html" width="200" height="60" frameborder="0">
+        <!-- 이 내용은 iframe이 지원되지 않을 때 표시 -->
+        다른 파일에서 콘텐츠를 불러오는 중입니다.
+    </iframe>
  <div class="bmi-container" id="content">
  </div>
-  
+  <a href="https://github.com/WOONJANG"><footer>© 2024. 장운 All rights reserved.</footer></a>
 </body> 
 </html>
