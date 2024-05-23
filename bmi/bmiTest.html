@@ -174,9 +174,7 @@ if (bmi < 13.92) {
 
 // 남자
 if(male == "M"){
-
-
-if (bmi < 14.01) {
+	if (bmi < 14.01) {
 			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
 			    gaugeColor = "#00f"; // 파란색
  			   gaugeValue = Math.min((bmi / 14.01) * gaugeWidth, 100); // 게이지 값 제한
@@ -192,7 +190,7 @@ if (bmi < 14.01) {
 
 }
 // 여자
-}else{
+else{
 if (bmi < 13.76) {
 			    resultText = `저체중 - BMI: ${bmi.toFixed(2)}`;
 			    gaugeColor = "#00f"; // 파란색
