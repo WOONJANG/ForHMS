@@ -498,7 +498,7 @@ if(age < 2){
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
 	}else{
-		if (bmi < 15.82) {
+		if (bmi < 15.71) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
                 gaugeColor = "#00f"; /* 저체중은 파란색 */
                 gaugeValue = Math.min((bmi / 15.71) * gaugeWidth, 100); /* 게이지 값 제한 */
