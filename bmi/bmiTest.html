@@ -72,7 +72,10 @@ function calculateBMI() {
             if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
                 document.getElementById("bmiResult").innerText = "올바른 신장과 체중을 입력하세요."; /* 잘못된 입력 처리 */
                 return;
-            }
+            }else if(age < 2){
+		ocument.getElementById("bmiResult").innerText = "2세 이상 부터 계산이 가능합니다."; /* 잘못된 입력 처리 */
+        	return;
+	    }
             
             const heightInMeters = height / 100; /* 신장을 미터 단위로 변환 */
             const bmi = weight / (heightInMeters * heightInMeters); /* BMI 계산 */
