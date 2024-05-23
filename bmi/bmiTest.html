@@ -472,7 +472,6 @@ if(age == 2){
                 gaugeColor = "#ffa500"; /* 비만은 주황색 */
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
-}
 	}
 }else if(age == 13){
 	if(male == "M"){
@@ -567,7 +566,7 @@ if(age == 2){
             } else{
                 resultText = `비만 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
                 gaugeColor = "#ffa500"; /* 비만은 주황색 */
-             
+            }
 	}else{
 		if (bmi < 16.78) {
                 resultText = `저체중 - BMI: ${bmi.toFixed(2)}`; /* BMI 값 표시 */
@@ -724,6 +723,8 @@ if(age == 2){
                 gaugeValue = Math.min(100, 100); /* 최대치 제한 */
             }
 }
+
+
 
 
 
