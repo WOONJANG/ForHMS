@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일일 단백질 섭취량 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .radio-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .radio-group input {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+	footer{
+		margin-bottom: 10px;
+	}
+    </style>
+</head>
+<body>
+    <iframe src="https://woonjang.github.io/ForHMS/homeButton.html" width="200" height="60" frameborder="0">
+        <!-- 이 내용은 iframe이 지원되지 않을 때 표시 -->
+        다른 파일에서 콘텐츠를 불러오는 중입니다.
+    </iframe>
+<div class="container">
+    <h1>단백질 섭취량 계산기</h1>
+    <label for="weight">체중 (kg):</label>
+    <input type="number" id="weight" min="1" max="300">
+    <div class="radio-group">
+        <label><input type="radio" name="activity" value="maintenance"> 건강유지</label>
+        <label><input type="radio" name="activity" value="endurance"> 근력(근육량 유지) 및 지구력훈련자</label>
+        <label><input type="radio" name="activity" value="muscle_gain"> 근력훈련(근육량 증대)자</label>
+        <label><input type="radio" name="activity" value="weight_loss"> 체중감량자</label>
+    </div>
+    <button onclick="calculateProtein()">계산하기</button>
+    <div class="result" id="result"></div>
+</div>
+<a href="https://github.com/WOONJANG"><footer>© 2024. 장운 All rights reserved.</footer></a>
+<script>
+    function calculateProtein() {
+        const weight = document.getElementById('weight').value;
+        const activity = document.querySelector('input[name="activity"]:checked');
+
+        if (!weight || !activity) {
+            alert('체중과 운동강도를 모두 선택해주세요.');
+            return;
+        }
+
+        let minProtein, maxProtein;
+        switch (activity.value) {
+            case 'maintenance':
+                minProtein = maxProtein = weight * 0.8;
+                break;
+            case 'endurance':
+                minProtein = weight * 1.2;
+                maxProtein = weight * 1.4;
+                break;
+            case 'muscle_gain':
+                minProtein = weight * 1.6;
+                maxProtein = weight * 1.8;
+                break;
+            case 'weight_loss':
+                minProtein = weight * 1.4;
+                maxProtein = weight * 1.8;
+                break;
+        }
+
+        animateNumber('result', minProtein, maxProtein);
+    }
+
+    function animateNumber(id, min, max) {
+        const resultDiv = document.getElementById(id);
+        resultDiv.innerHTML = ''; // Clear previous result
+
+        if (min === max) {
+            animateSingleNumber(resultDiv, min);
+        } else {
+            animateRange(resultDiv, min, max);
+        }
+    }
+
+    function animateSingleNumber(element, target) {
+        let current = 0;
+        const increment = target / 50;
+        const interval = setInterval(() => {
+            current += increment;
+            element.innerText = `필요 단백질\n ${current.toFixed(1)}g`;
+            if (current >= target) {
+                clearInterval(interval);
+                element.innerText = `필요 단백질\n ${target.toFixed(1)}g`;
+            }
+        }, 20);
+    }
+
+    function animateRange(element, min, max) {
+        let currentMin = 0;
+        let currentMax = 0;
+        const incrementMin = min / 50;
+        const incrementMax = max / 50;
+        const interval = setInterval(() => {
+            currentMin += incrementMin;
+            currentMax += incrementMax;
+            element.innerText = `필요 단백질\n ${currentMin.toFixed(1)}g ~ ${currentMax.toFixed(1)}g`;
+            if (currentMin >= min && currentMax >= max) {
+                clearInterval(interval);
+                element.innerText = `필요 단백질\n ${min.toFixed(1)}g ~ ${max.toFixed(1)}g`;
+            }
+        }, 20);
+    }
+</script>
+
+</body>
+</html>
