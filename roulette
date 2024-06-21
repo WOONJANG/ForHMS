@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .roulette-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        .roulette {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #333;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotate(0deg);
+            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .roulette div {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            text-align: center;
+            line-height: 150px;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .slice1 { background-color: red; transform: rotate(0deg) skewY(-30deg); }
+        .slice2 { background-color: blue; transform: rotate(90deg) skewY(-30deg); }
+        .slice3 { background-color: green; transform: rotate(180deg) skewY(-30deg); }
+        .slice4 { background-color: yellow; transform: rotate(270deg) skewY(-30deg); }
+        .pointer {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #333;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #spinButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="roulette-container">
+        <div class="pointer"></div>
+        <div class="roulette" id="roulette">
+            <div class="slice1">상품1 무료</div>
+            <div class="slice2">상품2 무료</div>
+            <div class="slice3">10% 할인</div>
+            <div class="slice4">20% 할인</div>
+        </div>
+        <button id="spinButton">룰렛 돌리기</button>
+    </div>
+
+    <script>
+        const roulette = document.getElementById('roulette');
+        const spinButton = document.getElementById('spinButton');
+        let isSpinning = false;
+        let timeoutId;
+
+        function getRandomAngle() {
+            const probabilities = [
+                { item: '상품1 무료', weight: 10 },
+                { item: '상품2 무료', weight: 10 },
+                { item: '10% 할인', weight: 40 },
+                { item: '20% 할인', weight: 40 },
+            ];
+
+            const totalWeight = probabilities.reduce((sum, current) => sum + current.weight, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (const probability of probabilities) {
+                if (random < probability.weight) {
+                    return probabilities.indexOf(probability) * 90 + Math.random() * 90;
+                }
+                random -= probability.weight;
+            }
+        }
+
+        function startSpin() {
+            if (isSpinning) return;
+            isSpinning = true;
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(spinRoulette, 5000);
+        }
+
+        function spinRoulette() {
+            const randomAngle = getRandomAngle();
+            const totalRotation = 360 * 5 + randomAngle;
+            roulette.style.transform = `rotate(${totalRotation}deg)`;
+            spinButton.textContent = '추첨 중...';
+            spinButton.disabled = true;
+        }
+
+        spinButton.addEventListener('click', () => {
+            if (isSpinning) {
+                spinRoulette();
+            } else {
+                startSpin();
+            }
+        });
+    </script>
+</body>
+</html>
