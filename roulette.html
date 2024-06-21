@@ -12,6 +12,7 @@
             height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
+            font-family: Arial, sans-serif;
         }
         .roulette-container {
             position: relative;
@@ -42,10 +43,10 @@
             font-size: 1.2em;
             font-weight: bold;
         }
-        .slice1 { background-color: red; transform: rotate(0deg) skewY(-30deg); }
-        .slice2 { background-color: blue; transform: rotate(90deg) skewY(-30deg); }
-        .slice3 { background-color: green; transform: rotate(180deg) skewY(-30deg); }
-        .slice4 { background-color: yellow; transform: rotate(270deg) skewY(-30deg); }
+        .slice1 { background-color: red; transform: rotate(0deg) skewY(-60deg); }
+        .slice2 { background-color: blue; transform: rotate(90deg) skewY(-60deg); }
+        .slice3 { background-color: green; transform: rotate(180deg) skewY(-60deg); }
+        .slice4 { background-color: yellow; transform: rotate(270deg) skewY(-60deg); }
         .pointer {
             width: 0;
             height: 0;
@@ -71,11 +72,21 @@
             border-radius: 50%;
             z-index: 1;
         }
+        #result {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="roulette-container">
         <div class="pointer"></div>
+        <div id="result"></div>
         <div class="roulette" id="roulette">
             <div class="slice1">상품1 무료</div>
             <div class="slice2">상품2 무료</div>
@@ -88,6 +99,7 @@
     <script>
         const roulette = document.getElementById('roulette');
         const spinButton = document.getElementById('spinButton');
+        const resultDisplay = document.getElementById('result');
         let isSpinning = false;
         let timeoutId;
 
@@ -104,7 +116,10 @@
             
             for (const probability of probabilities) {
                 if (random < probability.weight) {
-                    return probabilities.indexOf(probability) * 90 + Math.random() * 90;
+                    return {
+                        angle: probabilities.indexOf(probability) * 90 + Math.random() * 90,
+                        item: probability.item
+                    };
                 }
                 random -= probability.weight;
             }
@@ -118,9 +133,10 @@
         }
 
         function spinRoulette() {
-            const randomAngle = getRandomAngle();
-            const totalRotation = 360 * 5 + randomAngle;
+            const { angle, item } = getRandomAngle();
+            const totalRotation = 360 * 5 + angle;
             roulette.style.transform = `rotate(${totalRotation}deg)`;
+            resultDisplay.textContent = `당첨 결과: ${item}`;
             spinButton.textContent = '추첨 중...';
             spinButton.disabled = true;
         }
