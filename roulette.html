@@ -1,153 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .roulette-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-        }
-        .roulette {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 5px solid #333;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: rotate(0deg);
-            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        .roulette div {
-            width: 50%;
-            height: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-origin: 0 0;
-            text-align: center;
-            line-height: 150px;
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .slice1 { background-color: red; transform: rotate(0deg) skewY(-60deg); }
-        .slice2 { background-color: blue; transform: rotate(90deg) skewY(-60deg); }
-        .slice3 { background-color: green; transform: rotate(180deg) skewY(-60deg); }
-        .slice4 { background-color: yellow; transform: rotate(270deg) skewY(-60deg); }
-        .pointer {
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 30px solid #333;
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        #spinButton {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        #result {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="roulette-container">
-        <div class="pointer"></div>
-        <div id="result"></div>
-        <div class="roulette" id="roulette">
-            <div class="slice1">상품1 무료</div>
-            <div class="slice2">상품2 무료</div>
-            <div class="slice3">10% 할인</div>
-            <div class="slice4">20% 할인</div>
-        </div>
-        <button id="spinButton">룰렛 돌리기</button>
-    </div>
+<html>
+  <head>
+    <title>룰렛</title>
+    <meta charset="UTF-8" />
+      <style>
+          .rouletter {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+.rouletter-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 350px;
+  border-radius: 350px;
+  overflow: hidden;
+}
+.rouletter-wacu {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f2
+    url("https://m.lifeplanet.co.kr:444/commons/slink/administrator/openInnovation/img/MO)%20360%ED%94%8C%EB%9E%98%EB%8B%9B_%EB%A3%B0%EB%A0%9B%ED%8C%90_476x476_201026.png")
+    no-repeat;
+  background-size: 100%;
+  transform-origin: center;
+  transition-timing-function: ease-in-out;
+  transition: 2s;
+}
+.rouletter-arrow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 1px;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-top: 40px solid red;
+  border-bottom: 0px solid transparent;
+}
+.rouletter-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  background: #fff;
+  border-image: linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
+  border: 2px solid;
+}
+
+.hidden-input {
+  display: none;
+}
+      </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
 
     <script>
-        const roulette = document.getElementById('roulette');
-        const spinButton = document.getElementById('spinButton');
-        const resultDisplay = document.getElementById('result');
-        let isSpinning = false;
-        let timeoutId;
+        var rolLength = 6; // 해당 룰렛 콘텐츠 갯수
+var setNum; // 랜덤숫자 담을 변수
+var hiddenInput = document.createElement("input");
+hiddenInput.className = "hidden-input";
 
-        function getRandomAngle() {
-            const probabilities = [
-                { item: '상품1 무료', weight: 10 },
-                { item: '상품2 무료', weight: 10 },
-                { item: '10% 할인', weight: 40 },
-                { item: '20% 할인', weight: 40 },
-            ];
+//랜덤숫자부여
+const rRandom = () => {
+  var min = Math.ceil(0);
+  var max = Math.floor(rolLength - 1);
+  return Math.floor(Math.random() * (max - min)) + min;
+};
 
-            const totalWeight = probabilities.reduce((sum, current) => sum + current.weight, 0);
-            let random = Math.random() * totalWeight;
-            
-            for (const probability of probabilities) {
-                if (random < probability.weight) {
-                    return {
-                        angle: probabilities.indexOf(probability) * 90 + Math.random() * 90,
-                        item: probability.item
-                    };
-                }
-                random -= probability.weight;
-            }
-        }
+const rRotate = () => {
+  var panel = document.querySelector(".rouletter-wacu");
+  var btn = document.querySelector(".rouletter-btn");
+  var deg = [];
+  // 룰렛 각도 설정(rolLength = 6)
+  for (var i = 1, len = rolLength; i <= len; i++) {
+    deg.push((360 / len) * i);
+  }
+  
+  // 랜덤 생성된 숫자를 히든 인풋에 넣기
+  var num = 0;
+  document.body.append(hiddenInput);
+  setNum = hiddenInput.value = rRandom();
+	
+  // 애니설정
+  var ani = setInterval(() => {
+    num++;
+    panel.style.transform = "rotate(" + 360 * num + "deg)";
+    btn.disabled = true; //button,input
+    btn.style.pointerEvents = "none"; //a 태그
+    
+    // 총 50에 다달했을때, 즉 마지막 바퀴를 돌고나서
+    if (num === 50) {
+      clearInterval(ani);
+      panel.style.transform = `rotate(${deg[setNum]}deg)`;
+    }
+  }, 50);
+};
 
-        function startSpin() {
-            if (isSpinning) return;
-            isSpinning = true;
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(spinRoulette, 5000);
-        }
+// 정해진 alert띄우기, custom modal등
+const rLayerPopup = (num) => {
+  switch (num) {
+    case 1:
+      alert("당첨!! 스타벅스 아메리카노");
+      break;
+    case 3:
+      alert("당첨!! 햄버거 세트 교환권");
+      break;
+    case 5:
+      alert("당첨!! CU 3,000원 상품권");
+      break;
+    default:
+      alert("꽝! 다음기회에");
+  }
+};
 
-        function spinRoulette() {
-            const { angle, item } = getRandomAngle();
-            const totalRotation = 360 * 5 + angle;
-            roulette.style.transform = `rotate(${totalRotation}deg)`;
-            resultDisplay.textContent = `당첨 결과: ${item}`;
-            spinButton.textContent = '추첨 중...';
-            spinButton.disabled = true;
-        }
+// reset
+const rReset = (ele) => {
+  setTimeout(() => {
+    ele.disabled = false;
+    ele.style.pointerEvents = "auto";
+    rLayerPopup(setNum);
+    hiddenInput.remove();
+  }, 5500);
+};
 
-        spinButton.addEventListener('click', () => {
-            if (isSpinning) {
-                spinRoulette();
-            } else {
-                startSpin();
-            }
-        });
+// 룰렛 이벤트 클릭 버튼
+document.addEventListener("click", function (e) {
+  var target = e.target;
+  if (target.tagName === "BUTTON") {
+    rRotate();
+    rReset(target);
+  }
+});
+
+// roulette default
+document.getElementById("app").innerHTML = `
+<div class="rouletter">
+    <div class="rouletter-bg">
+        <div class="rouletter-wacu"></div>
+    </div>
+    <div class="rouletter-arrow"></div>
+    <button class="rouletter-btn">start</button>
+</div>
+`;
     </script>
-</body>
+  </body>
 </html>
