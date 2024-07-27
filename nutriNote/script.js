@@ -82,6 +82,7 @@ location.reload()
             lastSavedTime = currentTime;
             updateLastSavedTimeDisplay();
             alert('오늘의 기록이 저장되었습니다.');
+            location.reload();
         } else {
             alert('오늘은 이미 저장했습니다.');
         }
