@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveExpButton = document.getElementById('saveExpButton');
     const logoutButton = document.getElementById('logoutButton');
     const lastSavedTimeDisplay = document.getElementById('lastSavedTime');
+    const initialContainer = document.getElementById('initialContainer');
+    const mainContainer = document.getElementById('mainContainer');
 
     let exp = parseInt(localStorage.getItem('exp')) || 0;
     let savedDate = localStorage.getItem('savedDate') || '';
@@ -17,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = localStorage.getItem('name');
         if (name) {
             greeting.textContent = `${name} 님의 영양노트`;
-		   nameInput.style.display = "none";
-		   saveNameButton.style.display = "none";
+            nameInput.style.display = "none";
+            saveNameButton.style.display = "none";
         } else {
             greeting.textContent = '';
         }
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLastSavedTimeDisplay() {
         if (lastSavedTime) {
-            lastSavedTimeDisplay.textContent = `last save date: ${lastSavedTime}`;
+            lastSavedTimeDisplay.textContent = `Last save date: ${lastSavedTime}`;
         } else {
             lastSavedTimeDisplay.textContent = '';
         }
@@ -40,13 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
         checkboxes.forEach(checkbox => {
             const checkboxId = checkbox.getAttribute('data-id');
             const lastCheckedDate = localStorage.getItem(`lastCheckedDate${checkboxId}`);
-            const checkCount = localStorage.getItem(`checkCount${checkboxId}`) || 1;
+            const checkCount = localStorage.getItem(`checkCount${checkboxId}`) || 0;
             const lastCheckedDateDisplay = document.getElementById(`lastCheckedDate${checkboxId}`);
+            const image = document.getElementById(`img${checkboxId}`);
             if (lastCheckedDate) {
-                lastCheckedDateDisplay.textContent = `act Exp: ${checkCount} / last che: ${lastCheckedDate}`;
+                lastCheckedDateDisplay.textContent = `Checked ${checkCount} times / Last check: ${lastCheckedDate}`;
+                image.title = `Exp. ${checkCount}`; // Update image title attribute for tooltip
             } else {
                 lastCheckedDateDisplay.textContent = '';
+                image.title = 'Exp. 0'; // Default title attribute
             }
+        });
+    }
+
+    function initializeCheckboxes() {
+        checkboxes.forEach(checkbox => {
+            const checkboxId = checkbox.getAttribute('data-id');
+            const checkCount = localStorage.getItem(`checkCount${checkboxId}`) || 0;
+            checkbox.checked = localStorage.getItem(`checked${checkboxId}`) === 'true';
+            exp += parseInt(checkCount); // Accumulate the exp value based on check count
         });
     }
 
@@ -55,20 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (name) {
             localStorage.setItem('name', name);
             updateGreeting();
-location.reload()
+            location.reload();
         }
     });
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
             const checkboxId = checkbox.getAttribute('data-id');
-            let currentDate = new Date().toLocaleDateString();
+            let currentCheckCount = parseInt(localStorage.getItem(`checkCount${checkboxId}`)) || 0;
             if (checkbox.checked) {
-                exp += 1;
+                exp += 100;
+                //currentCheckCount += 1;
+                localStorage.setItem(`checked${checkboxId}`, 'true');
             } else {
-                exp -= 1;
+                exp -= 100;
+                //currentCheckCount = Math.max(0, currentCheckCount - 1);
+                localStorage.setItem(`checked${checkboxId}`, 'false');
             }
-            localStorage.setItem(`lastCheckedDate${checkboxId}`, currentDate);
+            localStorage.setItem(`checkCount${checkboxId}`, currentCheckCount);
             updateExpDisplay();
             updateLastCheckedDates();
         });
@@ -96,7 +114,6 @@ location.reload()
         }
     });
 
-    // 모든 체크박스를 hidden으로 변경하는 함수
     function hideAllCheckboxes() {
         const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
         allCheckboxes.forEach(checkbox => {
@@ -104,12 +121,10 @@ location.reload()
         });
     }
 
-    // 저장된 날짜와 오늘 날짜를 비교하여 동일하면 체크박스 숨기기
     if (savedDate === todayDate) {
         hideAllCheckboxes();
     }
 
-    // 페이지 로드 시 로컬스토리지에 이름이 있으면 초기화 화면을 숨기고 메인 화면을 보임
     if (localStorage.getItem('name')) {
         initialContainer.style.display = 'none';
         mainContainer.style.display = 'block';
@@ -118,6 +133,7 @@ location.reload()
         mainContainer.style.display = 'none';
     }
 
+    initializeCheckboxes(); // Initialize checkbox states and accumulate exp value
 
     updateGreeting();
     updateExpDisplay();
