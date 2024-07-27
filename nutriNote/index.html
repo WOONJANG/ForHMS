@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영양노트</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="initialContainer" class="container">
+        <h1>영양노트</h1>
+        <input type="text" id="nameInput" placeholder="이름을 입력하세요">
+        <button id="saveNameButton">이름 저장</button>
+    </div>
+
+    <div id="mainContainer" class="container" style="display:none;">
+        <h1>영양노트</h1>
+        <h2 id="greeting"></h2>
+        <p id="expDisplay"></p>
+        <div id="checkboxes">
+            <label><input type="checkbox" class="expCheckbox" data-id="1"> 1번 활동 <span class="lastCheckedDate" id="lastCheckedDate1"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="2"> 2번 활동 <span class="lastCheckedDate" id="lastCheckedDate2"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="3"> 3번 활동 <span class="lastCheckedDate" id="lastCheckedDate3"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="4"> 4번 활동 <span class="lastCheckedDate" id="lastCheckedDate4"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="5"> 5번 활동 <span class="lastCheckedDate" id="lastCheckedDate5"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="6"> 6번 활동 <span class="lastCheckedDate" id="lastCheckedDate6"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="7"> 7번 활동 <span class="lastCheckedDate" id="lastCheckedDate7"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="8"> 8번 활동 <span class="lastCheckedDate" id="lastCheckedDate8"></span></label><br>
+            <label><input type="checkbox" class="expCheckbox" data-id="9"> 9번 활동 <span class="lastCheckedDate" id="lastCheckedDate9"></span></label><br>
+        </div>
+	    <p id="lastSavedTime"></p>
+        <button id="saveExpButton">저장</button>
+        <button id="logoutButton">로그아웃</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
