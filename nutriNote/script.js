@@ -40,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         checkboxes.forEach(checkbox => {
             const checkboxId = checkbox.getAttribute('data-id');
             const lastCheckedDate = localStorage.getItem(`lastCheckedDate${checkboxId}`);
+            const checkCount = localStorage.getItem(`checkCount${checkboxId}`) || 1;
             const lastCheckedDateDisplay = document.getElementById(`lastCheckedDate${checkboxId}`);
             if (lastCheckedDate) {
-                lastCheckedDateDisplay.textContent = `last check date : ${lastCheckedDate}`;
+                lastCheckedDateDisplay.textContent = `act Exp: ${checkCount} / last che: ${lastCheckedDate}`;
             } else {
                 lastCheckedDateDisplay.textContent = '';
             }
@@ -81,8 +82,8 @@ location.reload()
             localStorage.setItem('lastSavedTime', currentTime);
             lastSavedTime = currentTime;
             updateLastSavedTimeDisplay();
-            alert('오늘의 기록이 저장되었습니다.');
             location.reload();
+            alert('오늘의 기록이 저장되었습니다.');
         } else {
             alert('오늘은 이미 저장했습니다.');
         }
